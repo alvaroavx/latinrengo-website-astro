@@ -1,0 +1,215 @@
+---
+import LatinRengoAnalytics from './LatinRengoAnalytics.astro';
+import LatinRengoSocialLayout from '../layouts/LatinRengoSocialLayout.astro';
+import {
+	formatCLP,
+	latinRengoSocialEvent as event,
+	publicMenuCategories,
+	publicMenuTransferDetails,
+	socialPath,
+} from '../content/social';
+
+const pageTitle = 'Menú LatinRengo Social';
+const pageDescription =
+	'Menú público confirmado de comida y bebestibles para LatinRengo Social, disponible como texto accesible para teléfono y TV.';
+const transferCopyText =
+	publicMenuTransferDetails?.fields.map((field) => `${field.label}: ${field.value}`).join('\n') ?? '';
+---
+
+<LatinRengoSocialLayout title={pageTitle} description={pageDescription} canonicalPath="/latin-rengo-social/menu">
+	<LatinRengoAnalytics sourcePage="latin-rengo-social-menu" initialEvent="select_menu" />
+	<main id="contenido" data-latin-rengo class="lr-page lr-menu-page">
+		<header class="lr-menu-hero">
+			<div>
+				<p class="lr-eyebrow">Menú público</p>
+				<h1>LatinRengo Social</h1>
+				<p>{event.dateLabel} · {event.venueName}</p>
+			</div>
+			<a class="lr-menu-return" href={socialPath}>Volver a LatinRengo Social</a>
+		</header>
+
+		<section class="lr-menu-board" aria-labelledby="lr-menu-title">
+			<div class="lr-section__heading">
+				<p class="lr-kicker">Menú confirmado</p>
+				<h2 id="lr-menu-title">Menú</h2>
+			</div>
+			<nav class="lr-menu-jump-nav" aria-label="Categorías del menú">
+				{publicMenuCategories.map((category) => (
+					<a href={`#menu-${category.id}`}>{category.title}</a>
+				))}
+			</nav>
+			<div class="lr-menu-grid">
+				{publicMenuCategories.map((category) => (
+					<section
+						class:list={['lr-menu-category', `lr-menu-category--${category.id}`]}
+						aria-labelledby={`menu-${category.id}`}
+					>
+						<div class="lr-menu-category__header">
+							<h3 id={`menu-${category.id}`}>{category.title}</h3>
+							{(category.provider || category.providerLink) && (
+								<div class="lr-menu-category__provider">
+									{category.provider && <p>{category.provider}</p>}
+									{category.providerLink && (
+										<a
+											href={category.providerLink.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											aria-label={`Abrir Instagram de ${category.provider ?? category.providerLink.label}`}
+										>
+											<svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+												<rect x="3" y="3" width="18" height="18" rx="5"></rect>
+												<circle cx="12" cy="12" r="4"></circle>
+												<circle cx="17.5" cy="6.5" r="1"></circle>
+											</svg>
+											<span>{category.providerLink.label}</span>
+										</a>
+									)}
+								</div>
+							)}
+						</div>
+						{category.intro && <p class="lr-menu-category__intro">{category.intro}</p>}
+						{category.legend && (
+							<dl class="lr-menu-legend" aria-label={`Tamaños disponibles para ${category.title}`}>
+								{category.legend.map((entry) => (
+									<div>
+										<dt>{entry.label}</dt>
+										<dd>{entry.value}</dd>
+									</div>
+								))}
+							</dl>
+						)}
+						{category.notice && (
+							<aside class="lr-menu-notice" aria-label={category.notice.label}>
+								<strong>{category.notice.label}</strong>
+								<ul>
+									{category.notice.items.map((item) => <li>{item}</li>)}
+								</ul>
+							</aside>
+						)}
+						<div class="lr-menu-items">
+							{category.items.map((item) => (
+								<article class="lr-menu-item">
+									<div class="lr-menu-item__copy">
+										<h4>{item.name}</h4>
+										<p>{item.description}</p>
+										{item.tags && (
+											<ul class="lr-tag-list" aria-label="Características">
+												{item.tags.map((tag) => <li>{tag}</li>)}
+											</ul>
+										)}
+									</div>
+									<div class="lr-menu-item__prices" aria-label={`Precios de ${item.name}`}>
+										{item.prices.map((price) => (
+											<p>
+												<span>{price.label}</span>
+												<strong>{formatCLP(price.price)}</strong>
+											</p>
+										))}
+									</div>
+								</article>
+							))}
+						</div>
+					</section>
+				))}
+			</div>
+			{publicMenuTransferDetails && (
+				<section class="lr-menu-payment" aria-labelledby="menu-payment-title">
+					<div class="lr-menu-payment__header">
+						<div>
+							<p class="lr-kicker">Pago</p>
+							<h2 id="menu-payment-title">{publicMenuTransferDetails.title}</h2>
+							<p>{publicMenuTransferDetails.description}</p>
+						</div>
+						<div class="lr-menu-payment__actions">
+							<button type="button" data-lr-transfer-copy>
+								<svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+									<rect x="8" y="8" width="11" height="11" rx="2"></rect>
+									<path d="M5 15H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path>
+								</svg>
+								<span>{publicMenuTransferDetails.copyLabel}</span>
+							</button>
+							<p data-lr-transfer-status role="status" aria-live="polite"></p>
+						</div>
+					</div>
+					<dl class="lr-menu-payment__details">
+						{publicMenuTransferDetails.fields.map((field) => (
+							<div>
+								<dt>{field.label}</dt>
+								<dd>{field.value}</dd>
+							</div>
+						))}
+					</dl>
+				</section>
+			)}
+		</section>
+		<footer class="lr-menu-footer">
+			<p>Solo se muestran productos confirmados para publicación.</p>
+			<p>Menú: /latin-rengo-social/menu</p>
+		</footer>
+	</main>
+	<script define:vars={{ transferCopyText }}>
+		const menuLinks = document.querySelectorAll('.lr-menu-jump-nav a[href^="#menu-"]');
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		menuLinks.forEach((link) => {
+			link.addEventListener('click', (event) => {
+				if (prefersReducedMotion) return;
+
+				const targetId = link.getAttribute('href')?.slice(1);
+				const target = targetId ? document.getElementById(targetId) : null;
+				if (!target) return;
+
+				event.preventDefault();
+				target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				window.history.pushState(null, '', `#${targetId}`);
+			});
+		});
+
+		const copyButton = document.querySelector('[data-lr-transfer-copy]');
+		const copyStatus = document.querySelector('[data-lr-transfer-status]');
+
+		function copyWithTextarea() {
+			const textarea = document.createElement('textarea');
+			textarea.value = transferCopyText;
+			textarea.setAttribute('readonly', '');
+			textarea.style.position = 'fixed';
+			textarea.style.left = '-9999px';
+			document.body.appendChild(textarea);
+			textarea.select();
+			const copied = document.execCommand('copy');
+			document.body.removeChild(textarea);
+			return copied;
+		}
+
+		async function writeTransferDetails() {
+			if (navigator.clipboard?.writeText) {
+				try {
+					await navigator.clipboard.writeText(transferCopyText);
+					return true;
+				} catch {
+					return copyWithTextarea();
+				}
+			}
+
+			return copyWithTextarea();
+		}
+
+		async function copyTransferDetails() {
+			if (!transferCopyText) return;
+
+			try {
+				const copied = await writeTransferDetails();
+				if (!copied) throw new Error('copy_failed');
+
+				if (copyStatus) copyStatus.textContent = 'Datos copiados.';
+			} catch {
+				if (copyStatus) {
+					copyStatus.textContent =
+						'No se pudo copiar automáticamente. Los datos están visibles para copiarlos manualmente.';
+				}
+			}
+		}
+
+		copyButton?.addEventListener('click', copyTransferDetails);
+	</script>
+</LatinRengoSocialLayout>

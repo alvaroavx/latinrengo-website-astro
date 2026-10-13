@@ -1,0 +1,2464 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+
+const PAGE_TITLE = "Archivo de LatinRengo Social — información no vigente";
+const PAGE_DESC  = "Archivo histórico de la página LatinRengo Social previa a la guía pública vigente. La información puede no estar actualizada.";
+const PAGE_IMAGE = "/images/latin-rengo-social-poster.jpg";
+
+const WA_NUM    = "56979898502";
+const WA_TICKET = "/latin-rengo-social#entradas";
+const MAP_QUERY = "Centro de Eventos Mariette, Rengo, Chile";
+const MAP_EMBED = `https://maps.google.com/maps?hl=es&q=${encodeURIComponent(MAP_QUERY)}&z=16&output=embed`;
+const MAP_LINK  = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
+const CALENDAR_LINK = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+  + `&text=${encodeURIComponent("Latin Rengo Social")}`
+  + "&dates=20260718T210000/20260719T030000"
+  + "&ctz=America/Santiago"
+  + `&details=${encodeURIComponent("El 1er Social de Salsa y Bachata de Rengo. Clase inicial, shows invitados y pista abierta.")}`
+  + `&location=${encodeURIComponent(MAP_QUERY)}`;
+const LATIN_RENGO_CONTACT = "+56 9 7989 8502";
+const LATIN_RENGO_INSTAGRAM = "https://instagram.com/latin.rengo";
+const currentYear = new Date().getFullYear();
+const SOCIAL_WORD_RE = /^(Sociales|Social|sociales|social)$/;
+const splitSocialWords = (value: string) => value.split(/(Sociales|Social|sociales|social)/g);
+
+const TICKETS = [
+  {
+    slug:      "preventa",
+    name:      "Preventa",
+    price:     "$3.000",
+    note:      "Disponible hasta agotar",
+    items:     ["Acceso al social", "Clase de salsa cubana incluida"],
+    available: true,
+    badge:     "Mejor precio",
+    color:     "orange",
+    featured:  false,
+  },
+  {
+    slug:      "general",
+    name:      "General",
+    price:     "$5.000",
+    note:      "Compra con anticipación",
+    items:     ["Acceso al social", "Clase de salsa cubana incluida"],
+    available: true,
+    badge:     null,
+    color:     "blue",
+    featured:  true,
+  },
+  {
+    slug:      "puerta",
+    name:      "En Puerta",
+    price:     "$8.000",
+    note:      "Sujeto a disponibilidad",
+    items:     ["Acceso al social", "Clase de salsa cubana incluida"],
+    available: true,
+    badge:     null,
+    color:     "dim",
+    featured:  false,
+  },
+];
+
+const SCHEDULE = [
+  { time: "21:00",        title: "Clase de Salsa Cubana",    desc: "Clase especial para todos los niveles. Sin experiencia previa necesaria.", marked: false, social: false },
+  { time: "22:00",        title: "Inicio del Social",        desc: "Pista abierta. Baila con quien quieras al ritmo de salsa y bachata.",      marked: true,  social: false },
+  { time: "23:00",        title: "Shows Invitados",           desc: "Academias y artistas invitados toman la pista.",                          marked: false, social: false },
+  { time: "Desde 00:00",  title: "Social de Salsa y Bachata", desc: "La noche continúa. Baila hasta el final.",                               marked: false, social: true  },
+];
+
+const WHY = [
+  { icon: "👤", text: "No necesitas pareja" },
+  { icon: "🎓", text: "No necesitas experiencia" },
+  { icon: "👥", text: "Conocerás personas nuevas" },
+  { icon: "💃", text: "Clase incluida en la entrada" },
+  { icon: "⭐", text: "Shows invitados en vivo" },
+  { icon: "🍻", text: "Barra y comida disponible" },
+  { icon: "🎶", text: "Salsa y bachata toda la noche" },
+];
+
+const PERFORMERS = [
+  {
+    artist: "Artista invitado",
+    show: "Nombre de la coreografía o show",
+    desc: "Aquí irá una breve descripción de quiénes son, qué presentan y por qué son parte de esta primera noche.",
+    link: "Sitio, Instagram o video por confirmar",
+    color: "blue",
+  },
+  {
+    artist: "Academia o grupo invitado",
+    show: "Show por confirmar",
+    desc: "Esta tarjeta queda preparada para presentar a academias, grupos o bailarines que se sumen a la celebración.",
+    link: "Enlace por confirmar",
+    color: "orange",
+  },
+  {
+    artist: "Bailarines invitados",
+    show: "Presentación por confirmar",
+    desc: "La idea es mostrar cada participación como parte de una comunidad que crece alrededor de la salsa y la bachata.",
+    link: "Video o red social por confirmar",
+    color: "purple",
+  },
+];
+
+const FAQS = [
+  {
+    q: "¿Es necesario saber bailar?",
+    a: "No hace falta. La noche parte con una clase de salsa cubana para soltar el cuerpo, aprender pasos básicos y entrar en confianza antes de que se abra la pista.",
+  },
+  {
+    q: "¿Necesito ir con pareja?",
+    a: "No. Puedes llegar solo, sola, con amistades o en pareja. En un social lo normal es compartir baile con distintas personas, siempre con respeto y buena onda.",
+  },
+  {
+    q: "¿Cómo compro mi entrada?",
+    a: "Escríbenos por WhatsApp y te ayudamos con la reserva. Es la forma más simple de asegurar tu entrada y recibir la información práctica del evento.",
+  },
+  {
+    q: "¿Dónde queda el lugar?",
+    a: "Será en Centro de Eventos Mariette, en Rengo. Dejamos el mapa en esta página y, al reservar, te enviamos la referencia exacta para que llegues sin perderte.",
+  },
+  {
+    q: "¿Habrá barra y comida?",
+    a: "Sí. La idea es que puedas bailar, descansar un rato, compartir algo y volver a la pista cuando quieras.",
+  },
+  {
+    q: "¿Habrá más Sociales después de este?",
+    a: "Eso queremos. Este primer encuentro es el punto de partida para que Rengo tenga un espacio propio de salsa, bachata y comunidad.",
+  },
+  {
+    q: "¿Puedo ir si me da vergüenza bailar?",
+    a: "Sí, y probablemente no serás la única persona. Puedes mirar, tomar la clase, bailar cuando te nazca o simplemente acompañar. La noche está pensada para pasarlo bien, no para evaluarte.",
+  },
+  {
+    q: "¿Qué música habrá?",
+    a: "Salsa, bachata y más música latina para mantener la pista viva durante la noche.",
+  },
+];
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <BaseHead
+    title={PAGE_TITLE}
+    description={PAGE_DESC}
+    image={PAGE_IMAGE}
+    canonicalPath="/latin-rengo-social/archivo/social-original"
+  />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="page page--latin-rengo-social">
+  <aside class="lrs-archive-banner" aria-label="Aviso de archivo">
+    <strong>Archivo de LatinRengo Social — información no vigente</strong>
+    <span>Esta copia conserva la página anterior solo como referencia histórica. Para entradas, horarios y menú usa la guía actual.</span>
+    <a href="/latin-rengo-social">Ir a la guía actual</a>
+  </aside>
+
+  <header class="lrs-page-header" aria-label="Navegación de Latin Rengo Social">
+    <div class="lrs-container lrs-page-header__inner">
+      <a class="lrs-page-header__brand" href="#lrs-top" aria-label="Volver al inicio de Latin Rengo Social">
+        <span class="lrs-page-header__brand-mark-wrap" aria-hidden="true">
+          <img class="lrs-page-header__brand-mark" src="/images/colaboradores/isotipo-latinrengo.png" alt="" width="152" height="152" />
+        </span>
+        <span class="lrs-page-header__brand-text" aria-label="Latin Rengo">
+          <span class="lrs-page-header__brand-word lrs-page-header__brand-word--latin">Latin</span>
+          <span class="lrs-page-header__brand-word lrs-page-header__brand-word--rengo">Rengo</span>
+        </span>
+        <span class="lrs-page-header__brand-social lrs-social-word">Social</span>
+      </a>
+      <nav class="lrs-page-header__nav" aria-label="Secciones de la landing">
+        <a href="#social">¿Qué es?</a>
+        <a href="#asistir">Por qué ir</a>
+        <a href="#entradas">Entradas</a>
+        <a href="#programa">Programa</a>
+        <a href="#shows">Shows</a>
+        <a href="#ubicacion">Cómo llegar</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <a class="lrs-page-header__cta" href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+        Reservar
+      </a>
+    </div>
+  </header>
+
+  <main class="site-main lrs-main" id="lrs-top">
+
+    <!-- ────────────────────────────────────────────
+         HERO
+         ──────────────────────────────────────────── -->
+    <section class="lrs-hero" aria-label="Social de Rengo — El primer social de salsa y bachata">
+      <div class="lrs-hero__bg" aria-hidden="true">
+        <div class="lrs-hero__glow lrs-hero__glow--orange"></div>
+        <div class="lrs-hero__glow lrs-hero__glow--purple"></div>
+        <div class="lrs-hero__glow lrs-hero__glow--blue"></div>
+      </div>
+
+      <div class="lrs-container">
+        <div class="lrs-hero__inner">
+
+          <div class="lrs-hero__content">
+            <p class="lrs-hero__organizer">Latin Rengo · Primer Aniversario</p>
+
+            <h1 class="lrs-hero__title">
+              <span class="lrs-hero__title-line lrs-hero__title-line--sm">El</span>
+              <span class="lrs-hero__title-line lrs-hero__title-line--mega lrs-neon-blue">1er Social</span>
+              <span class="lrs-hero__title-line lrs-hero__title-line--md">de Salsa y Bachata</span>
+              <span class="lrs-hero__title-line lrs-hero__title-line--sm">en Rengo</span>
+            </h1>
+
+            <p class="lrs-hero__tagline">
+              Celebrando el primer aniversario de Latin Rengo.
+            </p>
+          </div>
+
+          <div class="lrs-hero__poster" aria-hidden="true">
+            <div class="lrs-hero__poster-frame">
+              <img
+                src="/images/latin-rengo-social-poster.jpg"
+                alt="Afiche oficial de Latin Rengo Social"
+                width="1080"
+                height="1350"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         DATOS CLAVE / ACCIONES
+         ──────────────────────────────────────────── -->
+    <section class="lrs-event-strip" aria-label="Datos principales y acciones del evento">
+      <div class="lrs-container">
+        <div class="lrs-event-strip__grid">
+          <a class="lrs-event-card lrs-event-card--orange" href={CALENDAR_LINK} target="_blank" rel="noopener noreferrer" aria-label="Agregar Latin Rengo Social a Google Calendar">
+            <span class="lrs-event-card__icon" aria-hidden="true">📅</span>
+            <span class="lrs-event-card__label">Fecha</span>
+            <strong>Sábado 18 de julio</strong>
+          </a>
+          <div class="lrs-event-card lrs-event-card--purple">
+            <span class="lrs-event-card__icon" aria-hidden="true">🕘</span>
+            <span class="lrs-event-card__label">Hora</span>
+            <strong>21:00 – 03:00 hrs</strong>
+          </div>
+          <a class="lrs-event-card lrs-event-card--purple" href="#ubicacion">
+            <span class="lrs-event-card__icon" aria-hidden="true">📍</span>
+            <span class="lrs-event-card__label">Lugar</span>
+            <strong>Rengo</strong>
+          </a>
+          <a class="lrs-event-card lrs-event-card--green" href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+            <span class="lrs-event-card__icon" aria-hidden="true">💬</span>
+            <span class="lrs-event-card__label">Entrada</span>
+            <strong>Reserva por WhatsApp</strong>
+          </a>
+          <a class="lrs-event-card lrs-event-card--orange" href="#programa">
+            <span class="lrs-event-card__icon" aria-hidden="true">🎵</span>
+            <span class="lrs-event-card__label">Programa</span>
+            <strong>Ver la noche</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         ¿QUÉ ES UN SOCIAL?
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--dark lrs-social-section" id="social" aria-labelledby="que-es-heading">
+      <div class="lrs-container lrs-container--narrow">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">Antes de llegar</span>
+          <h2 class="lrs-heading" id="que-es-heading">¿Qué es un <span class="lrs-social-word">Social</span>?</h2>
+        </div>
+        <div class="lrs-explainer">
+          <p class="lrs-explainer__text">
+            Un <strong class="lrs-social-word">Social</strong> es una noche para encontrarse, escuchar buena música y bailar sin presión. Puedes venir a mirar, conversar, tomar la clase o lanzarte a la pista cuando te sientas listo.
+          </p>
+          <p class="lrs-explainer__text">
+            No necesitas pareja, experiencia ni pasos perfectos. La idea es que la comunidad te reciba, que pruebes algo nuevo y que lo pases bien con personas que también quieren aprender y compartir.
+          </p>
+          <p class="lrs-explainer__text">
+            Si es tu primera vez, mejor todavía. Llegas a la clase de las 21:00, aprendes pasos básicos, entras en ambiente y después decides cuánto quieres bailar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         ¿POR QUÉ ASISTIR?
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--darkest lrs-why-section" id="asistir" aria-labelledby="por-que-heading">
+      <div class="lrs-container">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">Razones para ir</span>
+          <h2 class="lrs-heading" id="por-que-heading">¿Por qué asistir?</h2>
+        </div>
+        <ul class="lrs-why" aria-label="Razones para asistir al Social de Rengo">
+          {WHY.map((item) => (
+            <li class="lrs-why__item">
+              <span class="lrs-why__icon" aria-hidden="true">{item.icon}</span>
+              <span class="lrs-why__text">{item.text}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="lrs-why__cta">
+          <a class="lrs-btn lrs-btn--primary" href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+            Reservar entrada ahora
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         ENTRADAS
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--dark" id="entradas" aria-labelledby="entradas-heading">
+      <div class="lrs-container">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">Entradas</span>
+          <h2 class="lrs-heading" id="entradas-heading">Elige tu entrada</h2>
+          <p class="lrs-lead">La preventa tiene cupo limitado. Reserva por WhatsApp para asegurar el mejor precio.</p>
+        </div>
+
+        <ul class="lrs-tickets">
+          {TICKETS.map((t) => (
+            <li class:list={["lrs-ticket", t.featured && "lrs-ticket--featured", `lrs-ticket--${t.color}`]}>
+              {t.badge && (
+                <span class:list={["lrs-ticket__badge", `lrs-ticket__badge--${t.color}`]}>
+                  {t.badge}
+                </span>
+              )}
+              <h3 class="lrs-ticket__name">{t.name}</h3>
+              <div class="lrs-ticket__price">{t.price}</div>
+              <p class="lrs-ticket__note">{t.note}</p>
+              <ul class="lrs-ticket__items">
+                {t.items.map((item) => (
+                  <li class="lrs-ticket__item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    {splitSocialWords(item).map((part) => (
+                      SOCIAL_WORD_RE.test(part) ? <span class="lrs-social-word">{part}</span> : part
+                    ))}
+                  </li>
+                ))}
+              </ul>
+              <a class="lrs-btn lrs-btn--ticket" href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+                Reservar por WhatsApp
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p class="lrs-footnote lrs-footnote--center">Las entradas se reservan por WhatsApp. Cupo limitado.</p>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         CRONOGRAMA
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--darkest lrs-program-section" id="programa" aria-labelledby="cronograma-heading">
+      <div class="lrs-container lrs-container--narrow">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">La noche</span>
+          <h2 class="lrs-heading" id="cronograma-heading">Cronograma</h2>
+        </div>
+
+        <ol class="lrs-timeline" aria-label="Programa de la noche">
+          {SCHEDULE.map((item) => (
+            <li class:list={["lrs-timeline__item", item.marked && "lrs-timeline__item--marked", item.social && "lrs-timeline__item--social"]}>
+              <div class="lrs-timeline__time">{item.time}</div>
+              <div class="lrs-timeline__body">
+                <h3 class="lrs-timeline__title">
+                  {splitSocialWords(item.title).map((part) => (
+                    SOCIAL_WORD_RE.test(part) ? <span class="lrs-social-word">{part}</span> : part
+                  ))}
+                </h3>
+                {item.desc && <p class="lrs-timeline__desc">{item.desc}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <p class="lrs-footnote lrs-footnote--center">* Horarios referenciales, sujetos a cambios.</p>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         GALERÍA
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--dark lrs-gallery-section" id="latin-rengo" aria-labelledby="galeria-heading">
+      <div class="lrs-container">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">Comunidad</span>
+          <h2 class="lrs-heading" id="galeria-heading">Así es Latin Rengo</h2>
+          <p class="lrs-lead">Clases, <span class="lrs-social-word">sociales</span> y comunidad de salsa y bachata en Rengo.</p>
+        </div>
+
+        <div class="lrs-gallery" aria-label="Fotografías de clases y eventos de Latin Rengo">
+          <div class="lrs-gallery__item lrs-gallery__item--tall">
+            <div class="lrs-gallery__ph">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Clases de Latin Rengo</span>
+            </div>
+          </div>
+          <div class="lrs-gallery__item">
+            <div class="lrs-gallery__ph">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Baile <span class="lrs-social-word">social</span></span>
+            </div>
+          </div>
+          <div class="lrs-gallery__item">
+            <div class="lrs-gallery__ph">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Comunidad</span>
+            </div>
+          </div>
+          <div class="lrs-gallery__item lrs-gallery__item--wide">
+            <div class="lrs-gallery__ph">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Eventos anteriores</span>
+            </div>
+          </div>
+          <div class="lrs-gallery__item">
+            <div class="lrs-gallery__ph">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Presentaciones</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         SHOWS / PRESENTACIONES
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--darkest lrs-shows-section" id="shows" aria-labelledby="shows-heading">
+      <div class="lrs-container">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">En escena</span>
+          <h2 class="lrs-heading" id="shows-heading">Shows de la noche</h2>
+          <p class="lrs-lead">Los shows y academias invitados se confirmarán próximamente. Sigue a Latin Rengo en redes para saberlo primero.</p>
+        </div>
+
+        <div class="lrs-performers">
+          {PERFORMERS.map((p) => (
+            <div class:list={["lrs-performer", `lrs-performer--${p.color}`]}>
+              <div class="lrs-performer__ring" aria-hidden="true">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <details class="lrs-performer__details">
+                <summary>
+                  <span class="lrs-performer__name">{p.artist}</span>
+                  <span class="lrs-performer__role">{p.show}</span>
+                </summary>
+                <p class="lrs-performer__desc">{p.desc}</p>
+                <p class="lrs-performer__link">{p.link}</p>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         CÓMO LLEGAR
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--dark lrs-location-section" id="ubicacion" aria-labelledby="ubicacion-heading">
+      <div class="lrs-container">
+        <div class="lrs-location">
+          <div class="lrs-location__content">
+            <span class="lrs-eyebrow">Cómo llegar</span>
+            <h2 class="lrs-heading" id="ubicacion-heading">Centro de Eventos Mariette</h2>
+            <p class="lrs-lead lrs-location__lead">
+              El <span class="lrs-social-word">Social</span> de Rengo será en Centro de Eventos Mariette, en Rengo.
+            </p>
+
+            <dl class="lrs-location__details">
+              <div>
+                <dt>Lugar</dt>
+                <dd>Centro de Eventos Mariette</dd>
+              </div>
+              <div>
+                <dt>Ciudad</dt>
+                <dd>Rengo</dd>
+              </div>
+              <div>
+                <dt>Dirección exacta</dt>
+                <dd>Se entregará al reservar tu entrada por WhatsApp.</dd>
+              </div>
+            </dl>
+
+            <div class="lrs-location__actions">
+              <a class="lrs-btn lrs-btn--primary" href={MAP_LINK} target="_blank" rel="noopener noreferrer">
+                Abrir en Google Maps
+              </a>
+              <a class="lrs-inline-link" href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+                Pedir referencias por WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div class="lrs-location__map">
+            <iframe
+              title="Mapa de Google Maps: Centro de Eventos Mariette, Rengo"
+              src={MAP_EMBED}
+              width="600"
+              height="450"
+              style="border:0;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         NACE SOCIAL DE RENGO
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-nace-section" aria-labelledby="nace-heading">
+      <div class="lrs-nace-bg" aria-hidden="true">
+        <div class="lrs-nace-glow lrs-nace-glow--left"></div>
+        <div class="lrs-nace-glow lrs-nace-glow--right"></div>
+      </div>
+      <div class="lrs-container lrs-container--narrow">
+        <span class="lrs-eyebrow">Latin Rengo</span>
+        <h2 class="lrs-nace__title" id="nace-heading">
+          Nace el<br>
+          <em class="lrs-neon-blue">Social de Rengo</em>
+        </h2>
+        <p class="lrs-nace__text">
+          Este no es solo un evento de aniversario. Es el comienzo de algo que Rengo no tenía: un espacio propio para la salsa y la bachata.
+        </p>
+        <p class="lrs-nace__text">
+          Latin Rengo cumple un año construyendo comunidad en la región. El <span class="lrs-social-word">Social</span> de Rengo nace para ser un punto de encuentro mensual, donde la gente pueda bailar, conocerse y crecer junto a la música latina.
+        </p>
+        <p class="lrs-nace__text lrs-nace__text--accent">
+          Si vienes, eres parte del comienzo.
+        </p>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         FAQ
+         ──────────────────────────────────────────── -->
+    <section class="lrs-section lrs-section--dark lrs-faq-section" id="preguntas" aria-labelledby="faq-heading">
+      <div class="lrs-container lrs-container--narrow">
+        <div class="lrs-section-header">
+          <span class="lrs-eyebrow">Dudas frecuentes</span>
+          <h2 class="lrs-heading" id="faq-heading">Preguntas frecuentes</h2>
+        </div>
+
+        <div class="lrs-faq">
+          {FAQS.map((item) => (
+            <details class="lrs-faq__item">
+              <summary class="lrs-faq__question">
+                <span>
+                  {splitSocialWords(item.q).map((part) => (
+                    SOCIAL_WORD_RE.test(part) ? <span class="lrs-social-word">{part}</span> : part
+                  ))}
+                </span>
+                <span class="lrs-faq__icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <p class="lrs-faq__answer">
+                {splitSocialWords(item.a).map((part) => (
+                  SOCIAL_WORD_RE.test(part) ? <span class="lrs-social-word">{part}</span> : part
+                ))}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────
+         CTA FINAL
+         ──────────────────────────────────────────── -->
+    <section class="lrs-cta-section" aria-labelledby="cta-heading">
+      <div class="lrs-cta-bg" aria-hidden="true">
+        <div class="lrs-cta-glow lrs-cta-glow--left"></div>
+        <div class="lrs-cta-glow lrs-cta-glow--right"></div>
+      </div>
+      <div class="lrs-container lrs-container--narrow">
+        <h2 class="lrs-cta__title" id="cta-heading">
+          Rengo tendrá su primer<br>
+          <em class="lrs-neon-blue">Social de Salsa<br>y Bachata.</em>
+        </h2>
+        <p class="lrs-cta__desc">
+          Queremos que seas parte del comienzo.
+        </p>
+        <a class="lrs-btn lrs-btn--primary lrs-btn--lg lrs-btn--wa" href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Reservar por WhatsApp
+        </a>
+        <p class="lrs-cta__credit">
+          Organizado por <a href="/" class="lrs-inline-link">Latin Rengo</a> · <span style="opacity:.55">Con el apoyo de Espacio Elementos</span>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="lrs-footer">
+    <div class="lrs-container lrs-footer__grid">
+      <div class="lrs-footer__brand">
+        <img src="/images/colaboradores/latinrengo.png" alt="" width="56" height="56" />
+        <div>
+          <p class="lrs-footer__kicker">LatinRengo</p>
+          <p class="lrs-footer__title">Clases de salsa y bachata en Rengo</p>
+        </div>
+      </div>
+
+      <div class="lrs-footer__info">
+        <p>Todos los sábados · 18:00 a 20:00 hrs</p>
+        <p>Espacio Elementos · Calle Nueva Tres #1036, Naranjal Norte, Rengo</p>
+      </div>
+
+      <div class="lrs-footer__links">
+        <a href={LATIN_RENGO_INSTAGRAM} target="_blank" rel="noopener noreferrer">
+          @latin.rengo
+        </a>
+        <a href={WA_TICKET} target="_blank" rel="noopener noreferrer">
+          WhatsApp {LATIN_RENGO_CONTACT}
+        </a>
+        <span>LatinRengo · {currentYear}</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante WhatsApp -->
+  <a
+    class="lrs-wa-float"
+    href={WA_TICKET}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Reservar entrada por WhatsApp"
+  >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+    <span class="lrs-wa-float__label">Reservar</span>
+  </a>
+
+</body>
+</html>
+
+<!-- ================================================================
+     GLOBAL OVERRIDES — Scoped to body.page--latin-rengo-social
+     Safe: Astro generates separate per-page CSS bundles.
+     ================================================================ -->
+<style is:global>
+  body.page--latin-rengo-social {
+    background: #050505 !important;
+    color: #ffffff;
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  }
+
+  body.page--latin-rengo-social .lrs-archive-banner {
+    position: relative;
+    z-index: 1000;
+    display: grid;
+    gap: 0.35rem;
+    background: #fff2d8;
+    color: #241105;
+    padding: 0.85rem 1rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.4;
+  }
+
+  body.page--latin-rengo-social .lrs-archive-banner strong {
+    font-weight: 900;
+  }
+
+  body.page--latin-rengo-social .lrs-archive-banner a {
+    width: fit-content;
+    color: #241105;
+    font-weight: 900;
+  }
+
+  body.page--latin-rengo-social a[href="/latin-rengo-social#entradas"] {
+    border-color: #fff2d8 !important;
+    background: #fff2d8 !important;
+    color: #241105 !important;
+    box-shadow: none !important;
+  }
+
+  body.page--latin-rengo-social::before,
+  body.page--latin-rengo-social::after {
+    display: none;
+  }
+
+  body.page--latin-rengo-social .site-header {
+    background: rgba(5, 5, 5, 0.92) !important;
+    border-bottom-color: rgba(255, 154, 77, 0.14) !important;
+  }
+
+  body.page--latin-rengo-social .site-header__link {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+
+  body.page--latin-rengo-social .site-header__link:hover,
+  body.page--latin-rengo-social .site-header__link.active {
+    color: #FF9A4D !important;
+  }
+
+  body.page--latin-rengo-social .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.22) !important;
+  }
+
+  body.page--latin-rengo-social .navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+  }
+
+  @media (max-width: 991px) {
+    body.page--latin-rengo-social .navbar-collapse {
+      background: #0a0a0c;
+      padding: 0.75rem 1rem 1rem;
+      border-top: 1px solid rgba(255, 154, 77, 0.12);
+    }
+    body.page--latin-rengo-social .site-header__cta-wrap {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+
+<!-- ================================================================
+     LANDING STYLES — All .lrs-* classes (Astro-scoped)
+     ================================================================ -->
+<style>
+  /* ---------------------------------------------------------------
+     TOKENS
+  --------------------------------------------------------------- */
+  .lrs-main {
+    --c-black:  #050505;
+    --c-dark:   #101014;
+    --c-darker: #0a0a0c;
+    --c-card:   rgba(255,255,255,.04);
+    --c-border: rgba(255,255,255,.08);
+    --c-white:  #ffffff;
+    --c-text:   #e8e8f0;
+    --c-muted:  #c8c8d0;
+    --c-dim:    #888898;
+    --c-blue:   #54DFFF;
+    --c-orange: #FF9A4D;
+    --c-purple: #C678FF;
+    --c-green:  #25D366;
+    --glow-b: 0 0 8px rgba(84,223,255,.65), 0 0 24px rgba(84,223,255,.38), 0 0 60px rgba(84,223,255,.16);
+    --glow-o: 0 0 8px rgba(255,154,77,.65), 0 0 24px rgba(255,154,77,.38);
+    --glow-p: 0 0 8px rgba(198,120,255,.65), 0 0 24px rgba(198,120,255,.38);
+    --r:    12px;
+    --r-lg: 20px;
+    --ease: 0.2s ease;
+    background: var(--c-black);
+    color: var(--c-text);
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+
+  /* ---------------------------------------------------------------
+     NEON TEXT
+  --------------------------------------------------------------- */
+  .lrs-neon-blue {
+    font-style: normal;
+    color: var(--c-blue);
+    text-shadow:
+      0 0 8px rgba(84,223,255,.65),
+      0 0 26px rgba(198,120,255,.32),
+      0 0 52px rgba(255,154,77,.18);
+  }
+
+  .lrs-social-word {
+    font-family: 'Lobster', cursive;
+    color: var(--c-blue);
+    font-style: inherit;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: none;
+    text-shadow:
+      0 0 8px rgba(84,223,255,.72),
+      0 0 24px rgba(84,223,255,.32);
+  }
+
+  /* ---------------------------------------------------------------
+     LAYOUT
+  --------------------------------------------------------------- */
+  .lrs-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .lrs-container--narrow { max-width: 720px; }
+
+  .lrs-section          { padding: 5rem 0; position: relative; overflow: hidden; }
+  .lrs-section--dark    { background: var(--c-dark); }
+  .lrs-section--darkest { background: var(--c-darker); }
+
+  .lrs-section::before,
+  .lrs-event-strip::before,
+  .lrs-cta-section::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4.5rem;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(255,154,77,.08), transparent 70%),
+      radial-gradient(ellipse at 50% 0%, rgba(198,120,255,.2), transparent 66%),
+      linear-gradient(90deg, transparent, rgba(255,154,77,.72), rgba(198,120,255,.5), transparent) top / 100% 2px no-repeat;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+  }
+
+  .lrs-section::after {
+    content: "";
+    position: absolute;
+    inset: auto 8% -5rem;
+    height: 9rem;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 35% 50%, rgba(255,154,77,.1), transparent 68%),
+      radial-gradient(ellipse at 68% 50%, rgba(198,120,255,.08), transparent 70%);
+  }
+
+  .lrs-social-section,
+  #entradas,
+  .lrs-shows-section,
+  .lrs-nace-section {
+    background:
+      radial-gradient(circle at 10% 16%, rgba(255,154,77,.16), transparent 20rem),
+      radial-gradient(circle at 88% 74%, rgba(198,120,255,.16), transparent 22rem),
+      var(--c-dark);
+  }
+
+  .lrs-why-section,
+  .lrs-program-section,
+  .lrs-gallery-section,
+  .lrs-location-section,
+  .lrs-faq-section {
+    background:
+      radial-gradient(circle at 8% 20%, rgba(255,154,77,.055), transparent 18rem),
+      radial-gradient(circle at 92% 78%, rgba(198,120,255,.055), transparent 20rem),
+      linear-gradient(180deg, rgba(255,255,255,.018), transparent),
+      var(--c-darker);
+  }
+
+  .lrs-program-section::before,
+  .lrs-shows-section::before,
+  .lrs-faq-section::before {
+    background: linear-gradient(90deg, transparent, rgba(198,120,255,.55), rgba(255,154,77,.38), transparent);
+    box-shadow: 0 0 24px rgba(198,120,255,.2), 0 0 44px rgba(255,154,77,.12);
+  }
+
+  /* ---------------------------------------------------------------
+     PAGE HEADER
+  --------------------------------------------------------------- */
+  .lrs-page-header {
+    --c-white:  #ffffff;
+    --c-muted:  #c8c8d0;
+    --c-blue:   #54DFFF;
+    --c-green:  #25D366;
+    position: sticky;
+    top: 0;
+    z-index: 210;
+    background: rgba(5, 5, 5, 0.88);
+    border-bottom: 1px solid rgba(255,154,77,.18);
+    backdrop-filter: blur(18px);
+  }
+
+  .lrs-page-header__inner {
+    min-height: 84px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lrs-page-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--c-white);
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .lrs-page-header__brand-mark-wrap {
+    width: 76px;
+    height: 38px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .lrs-page-header__brand-mark {
+    width: 152px;
+    height: 152px;
+    object-fit: contain;
+    object-position: center top;
+    display: block;
+    transform: translateY(-3px);
+    filter: drop-shadow(0 0 10px rgba(255,154,77,.32)) drop-shadow(0 0 16px rgba(198,120,255,.18));
+  }
+
+  .lrs-page-header__brand-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.18rem;
+    font-family: 'Lobster', cursive;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .lrs-page-header__brand-word {
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .lrs-page-header__brand-word--latin {
+    color: var(--c-orange);
+  }
+
+  .lrs-page-header__brand-word--rengo {
+    color: var(--c-purple);
+  }
+
+  .lrs-page-header__brand-social {
+    margin-left: 0.2rem;
+    font-size: 2rem;
+  }
+
+  .lrs-page-header__nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .lrs-page-header__nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lrs-page-header__nav a,
+  .lrs-page-header__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    color: var(--c-muted);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .lrs-page-header__nav a:hover,
+  .lrs-page-header__nav a:focus-visible {
+    color: var(--c-orange);
+    background: rgba(255,154,77,.08);
+    box-shadow: 0 0 18px rgba(255,154,77,.14);
+  }
+
+  .lrs-page-header__cta {
+    background: var(--c-green);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(37,211,102,.32);
+  }
+
+  .lrs-section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  /* ---------------------------------------------------------------
+     TYPOGRAPHY
+  --------------------------------------------------------------- */
+  .lrs-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-orange);
+    margin-bottom: 0.7rem;
+  }
+
+  .lrs-heading {
+    font-family: 'Bebas Neue', 'Anton', system-ui, sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: 0.04em;
+    color: var(--c-white);
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+  }
+
+  .lrs-lead {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--c-muted);
+    max-width: 58ch;
+    margin: 0 auto;
+  }
+
+  .lrs-footnote { font-size: 0.76rem; color: var(--c-dim); margin: 0; }
+  .lrs-footnote--center { text-align: center; }
+
+  .lrs-inline-link { color: var(--c-orange); text-decoration: underline; text-underline-offset: 3px; }
+  .lrs-inline-link:hover { color: #fff; }
+
+  /* ---------------------------------------------------------------
+     BUTTONS
+  --------------------------------------------------------------- */
+  .lrs-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.75rem;
+    border-radius: 999px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--ease), background-color var(--ease), box-shadow var(--ease), border-color var(--ease), color var(--ease);
+    border: 2px solid transparent;
+    white-space: nowrap;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 48px; /* touch target */
+  }
+
+  .lrs-btn:focus-visible {
+    outline: 3px solid var(--c-orange);
+    outline-offset: 4px;
+  }
+
+  .lrs-btn--primary {
+    background: var(--c-orange);
+    color: #050a0d;
+    border-color: var(--c-orange);
+    box-shadow: var(--glow-o);
+  }
+
+  .lrs-btn--primary:hover {
+    background: #ffb270;
+    border-color: #ffb270;
+    box-shadow: 0 0 16px rgba(255,154,77,.78), 0 0 48px rgba(255,154,77,.34);
+    transform: translateY(-2px);
+    color: #050505;
+  }
+
+  .lrs-btn--ghost {
+    background: transparent;
+    color: var(--c-white);
+    border-color: rgba(255,255,255,.28);
+  }
+
+  .lrs-btn--ghost:hover {
+    border-color: var(--c-purple);
+    color: var(--c-purple);
+    background: rgba(198,120,255,.07);
+  }
+
+  .lrs-btn--ticket {
+    width: 100%;
+    background: transparent;
+    color: var(--c-orange);
+    border-color: rgba(255,154,77,.45);
+    font-size: 0.8rem;
+    padding: 0.78rem 1.25rem;
+    min-height: 44px;
+  }
+
+  .lrs-btn--ticket:hover {
+    background: var(--c-orange);
+    color: #050505;
+    box-shadow: var(--glow-o);
+    transform: translateY(-1px);
+  }
+
+  .lrs-btn--lg {
+    padding: 1.1rem 2.5rem;
+    font-size: 1rem;
+    min-height: 56px;
+  }
+
+  .lrs-btn--wa {
+    background: var(--c-green);
+    border-color: var(--c-green);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  }
+
+  .lrs-btn--wa:hover {
+    background: #20c05a;
+    border-color: #20c05a;
+    box-shadow: 0 6px 30px rgba(37,211,102,.65);
+    transform: translateY(-2px);
+    color: #ffffff;
+  }
+
+  /* ---------------------------------------------------------------
+     CHIPS
+  --------------------------------------------------------------- */
+  .lrs-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+
+  .lrs-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.42rem 0.85rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--c-muted);
+  }
+
+  .lrs-chip svg { color: var(--c-orange); flex-shrink: 0; }
+
+  /* ---------------------------------------------------------------
+     HERO
+  --------------------------------------------------------------- */
+  .lrs-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    background-color: #0c0607;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='36'%3E%3Crect x='2' y='2' width='80' height='14' rx='1' fill='%231a0a08' stroke='%230c0404' stroke-width='1'/%3E%3Crect x='44' y='20' width='80' height='14' rx='1' fill='%23160807' stroke='%230a0303' stroke-width='1'/%3E%3Crect x='-40' y='20' width='80' height='14' rx='1' fill='%23160807' stroke='%230a0303' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 84px 36px;
+    padding: 7rem 0 4.5rem;
+  }
+
+  .lrs-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .lrs-hero__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .lrs-hero__glow--orange {
+    width: 600px; height: 480px;
+    background: rgba(255,154,77,.18);
+    bottom: -150px; left: -100px;
+  }
+
+  .lrs-hero__glow--purple {
+    width: 400px; height: 400px;
+    background: rgba(198,120,255,.12);
+    top: 10%; left: 30%;
+  }
+
+  .lrs-hero__glow--blue {
+    width: 640px; height: 540px;
+    background: rgba(198,120,255,.12);
+    top: -100px; right: -100px;
+  }
+
+  .lrs-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .lrs-hero__organizer {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-orange);
+    margin: 0 0 1.25rem;
+  }
+
+  .lrs-hero__title {
+    font-family: 'Bebas Neue', 'Anton', system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .lrs-hero__title-line { display: block; line-height: 0.92; }
+
+  .lrs-hero__title-line--sm {
+    font-size: clamp(1.6rem, 3.8vw, 3.2rem);
+    color: var(--c-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .lrs-hero__title-line--lg {
+    font-size: clamp(3.8rem, 10vw, 8.5rem);
+  }
+
+  .lrs-hero__title-line--mega {
+    font-size: clamp(4.7rem, 12vw, 10rem);
+    line-height: 0.86;
+  }
+
+  .lrs-hero__title-line--md {
+    font-size: clamp(2.2rem, 5.5vw, 4.8rem);
+    color: var(--c-white);
+    margin-top: 0.1em;
+  }
+
+  .lrs-hero__tagline {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 400;
+    color: var(--c-muted);
+    margin: 0 0 1.75rem;
+    line-height: 1.5;
+  }
+
+  .lrs-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .lrs-hero__poster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lrs-hero__poster-frame {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    width: min(440px, 32vw);
+    background: linear-gradient(135deg, rgba(255,154,77,.06), rgba(198,120,255,.06));
+    box-shadow:
+      0 0 0 1px rgba(255,154,77,.32),
+      0 0 34px rgba(255,154,77,.18),
+      0 0 76px rgba(198,120,255,.16),
+      0 28px 76px rgba(0,0,0,.78);
+  }
+
+  .lrs-hero__poster-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  /* ---------------------------------------------------------------
+     EVENT STRIP
+  --------------------------------------------------------------- */
+  .lrs-event-strip {
+    position: relative;
+    z-index: 2;
+    padding: 1.5rem 0 4.5rem;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(255,154,77,.14), transparent 20rem),
+      radial-gradient(circle at 82% 60%, rgba(198,120,255,.12), transparent 20rem),
+      var(--c-darker);
+  }
+
+  .lrs-event-strip__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.9rem;
+  }
+
+  .lrs-event-card {
+    min-height: 150px;
+    display: grid;
+    place-content: center;
+    align-items: center;
+    justify-items: center;
+    gap: 0.35rem;
+    padding: 1.2rem 1rem;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--r-lg);
+    background: rgba(255,255,255,.045);
+    color: var(--c-white);
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 0 30px rgba(255,154,77,.055);
+  }
+
+  .lrs-event-card__icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+    font-size: 1.45rem;
+    filter: drop-shadow(0 0 14px currentColor);
+  }
+
+  .lrs-event-card__label {
+    color: var(--c-dim);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lrs-event-card strong {
+    max-width: 12rem;
+    font-size: 0.98rem;
+    line-height: 1.25;
+  }
+
+  .lrs-event-card--blue { border-color: rgba(198,120,255,.34); box-shadow: 0 0 28px rgba(198,120,255,.1); }
+  .lrs-event-card--orange { border-color: rgba(255,154,77,.38); box-shadow: 0 0 28px rgba(255,154,77,.1); }
+  .lrs-event-card--purple { border-color: rgba(198,120,255,.36); box-shadow: 0 0 28px rgba(198,120,255,.1); }
+  .lrs-event-card--green { border-color: rgba(37,211,102,.42); box-shadow: 0 0 28px rgba(37,211,102,.12); }
+
+  .lrs-event-card--blue .lrs-event-card__icon { color: var(--c-purple); }
+  .lrs-event-card--orange .lrs-event-card__icon { color: var(--c-orange); }
+  .lrs-event-card--purple .lrs-event-card__icon { color: var(--c-purple); }
+  .lrs-event-card--green .lrs-event-card__icon { color: var(--c-green); }
+
+  /* ---------------------------------------------------------------
+     ¿QUÉ ES UN SOCIAL?
+  --------------------------------------------------------------- */
+  .lrs-explainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: 2rem;
+    border: 1px solid rgba(255,154,77,.44);
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255,154,77,.11), transparent 16rem),
+      radial-gradient(circle at 100% 100%, rgba(198,120,255,.1), transparent 16rem),
+      rgba(255,255,255,.035);
+    box-shadow: 0 0 0 1px rgba(255,154,77,.09), 0 0 38px rgba(255,154,77,.14), 0 0 62px rgba(198,120,255,.08);
+  }
+
+  .lrs-explainer__text {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--c-muted);
+    margin: 0;
+    text-align: center;
+  }
+
+  .lrs-explainer__text strong {
+    color: var(--c-white);
+    font-weight: 700;
+  }
+
+  /* ---------------------------------------------------------------
+     ¿POR QUÉ ASISTIR?
+  --------------------------------------------------------------- */
+  .lrs-why {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+  }
+
+  .lrs-why__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.5rem 1rem;
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r);
+    text-align: center;
+    transition: border-color var(--ease), transform var(--ease);
+    box-shadow: 0 0 22px rgba(255,154,77,.045);
+  }
+
+  .lrs-why__item:hover {
+    border-color: rgba(255,154,77,.28);
+    transform: translateY(-3px);
+  }
+
+  .lrs-why__icon {
+    font-size: 1.75rem;
+    line-height: 1;
+    display: block;
+    filter: drop-shadow(0 0 12px rgba(255,154,77,.72));
+  }
+
+  .lrs-why__item:nth-child(2n) .lrs-why__icon { filter: drop-shadow(0 0 12px rgba(255,154,77,.7)); }
+  .lrs-why__item:nth-child(3n) .lrs-why__icon { filter: drop-shadow(0 0 12px rgba(198,120,255,.7)); }
+
+  .lrs-why__text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--c-white);
+    line-height: 1.35;
+  }
+
+  .lrs-why__cta { text-align: center; }
+
+  /* ---------------------------------------------------------------
+     TICKETS
+  --------------------------------------------------------------- */
+  .lrs-tickets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    align-items: start;
+  }
+
+  .lrs-ticket {
+    position: relative;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--r-lg);
+    padding: 2.25rem 1.75rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
+  }
+
+  .lrs-ticket:hover { transform: translateY(-4px); }
+
+  .lrs-ticket--blue {
+    border-color: rgba(198,120,255,.28);
+  }
+  .lrs-ticket--blue:hover {
+    border-color: rgba(198,120,255,.55);
+    box-shadow: 0 12px 40px rgba(198,120,255,.09);
+  }
+  .lrs-ticket--featured {
+    border-color: rgba(198,120,255,.42);
+    box-shadow: 0 0 0 1px rgba(198,120,255,.12), 0 0 40px rgba(198,120,255,.07);
+  }
+  .lrs-ticket--orange { border-color: rgba(255,154,77,.25); }
+  .lrs-ticket--orange:hover {
+    border-color: rgba(255,154,77,.52);
+    box-shadow: 0 12px 40px rgba(255,154,77,.07);
+  }
+  .lrs-ticket--dim { border-color: rgba(255,255,255,.09); }
+  .lrs-ticket--dim:hover { border-color: rgba(255,255,255,.2); }
+
+  .lrs-ticket__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.2rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .lrs-ticket__badge--orange { background: var(--c-orange); color: #050505; }
+  .lrs-ticket__badge--blue   { background: var(--c-purple); color: #050505; }
+
+  .lrs-ticket__name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-dim);
+    margin: 0;
+  }
+
+  .lrs-ticket__price {
+    font-family: 'Bebas Neue', 'Anton', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--c-white);
+    letter-spacing: 0.02em;
+  }
+
+  .lrs-ticket--featured .lrs-ticket__price {
+    color: var(--c-purple);
+    text-shadow: var(--glow-p);
+  }
+
+  .lrs-ticket__note {
+    font-size: 0.76rem;
+    color: var(--c-dim);
+    margin: -0.4rem 0 0;
+    font-weight: 500;
+  }
+
+  .lrs-ticket__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  .lrs-ticket__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    color: var(--c-muted);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .lrs-ticket__item svg { color: var(--c-orange); flex-shrink: 0; margin-top: 3px; }
+
+  /* ---------------------------------------------------------------
+     CRONOGRAMA — rediseñado para mobile
+  --------------------------------------------------------------- */
+  .lrs-timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .lrs-timeline__item {
+    display: grid;
+    grid-template-columns: minmax(11rem, 0.42fr) minmax(0, 1fr);
+    gap: 1.4rem;
+    padding: 1.8rem;
+    border: 1px solid rgba(198,120,255,.16);
+    border-radius: var(--r-lg);
+    background: rgba(255,255,255,.035);
+    align-items: flex-start;
+    box-shadow: 0 0 30px rgba(198,120,255,.09);
+  }
+
+  .lrs-timeline__item:hover {
+    border-color: rgba(198,120,255,.34);
+    box-shadow: 0 0 40px rgba(198,120,255,.16);
+  }
+
+  .lrs-timeline__time {
+    font-family: 'Bebas Neue', 'Anton', sans-serif;
+    font-size: clamp(2rem, 3.4vw, 2.75rem);
+    color: var(--c-purple);
+    text-shadow: 0 0 14px rgba(198,120,255,.8), 0 0 42px rgba(198,120,255,.32);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 100%;
+    text-align: right;
+    line-height: 0.95;
+  }
+
+  .lrs-timeline__time::before {
+    content: "✦";
+    display: block;
+    margin-bottom: 0.5rem;
+    color: currentColor;
+    font-size: 2.25rem;
+    line-height: 1;
+    text-shadow: inherit;
+  }
+
+  .lrs-timeline__item--marked .lrs-timeline__time {
+    color: var(--c-orange);
+    text-shadow: 0 0 14px rgba(255,154,77,.86), 0 0 42px rgba(255,154,77,.34);
+  }
+
+  .lrs-timeline__item--social {
+    border-color: rgba(84,223,255,.4);
+    background:
+      radial-gradient(circle at 14% 18%, rgba(84,223,255,.14), transparent 13rem),
+      radial-gradient(circle at 88% 72%, rgba(84,223,255,.08), transparent 16rem),
+      rgba(84,223,255,.035);
+    box-shadow: 0 0 0 1px rgba(84,223,255,.08), 0 0 42px rgba(84,223,255,.17);
+  }
+
+  .lrs-timeline__item--social:hover {
+    border-color: rgba(84,223,255,.62);
+    box-shadow: 0 0 0 1px rgba(84,223,255,.14), 0 0 52px rgba(84,223,255,.24);
+  }
+
+  .lrs-timeline__item--social .lrs-timeline__time,
+  .lrs-timeline__item--social .lrs-timeline__title,
+  .lrs-timeline__item--social .lrs-timeline__desc {
+    color: var(--c-blue);
+  }
+
+  .lrs-timeline__item--social .lrs-timeline__time,
+  .lrs-timeline__item--social .lrs-timeline__title {
+    text-shadow: 0 0 14px rgba(84,223,255,.78), 0 0 42px rgba(84,223,255,.3);
+  }
+
+  .lrs-timeline__body {
+    padding-top: 0.35rem;
+  }
+
+  .lrs-timeline__title {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--c-white);
+    margin: 0 0 0.6rem;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.18;
+  }
+
+  .lrs-timeline__item--marked .lrs-timeline__title { color: var(--c-orange); }
+
+  .lrs-timeline__desc {
+    font-size: clamp(0.98rem, 2vw, 1.1rem);
+    color: var(--c-muted);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* ---------------------------------------------------------------
+     GALERÍA
+  --------------------------------------------------------------- */
+  .lrs-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 220px 180px;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid rgba(255,154,77,.26);
+    border-radius: var(--r-lg);
+    box-shadow: 0 0 42px rgba(255,154,77,.1);
+  }
+
+  .lrs-gallery__item { border-radius: var(--r); overflow: hidden; }
+
+  .lrs-gallery__item--tall { grid-row: span 2; }
+  .lrs-gallery__item--wide { grid-column: span 2; }
+
+  .lrs-gallery__ph {
+    width: 100%;
+    height: 100%;
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    color: var(--c-dim);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+    transition: border-color var(--ease), background-color var(--ease);
+    cursor: pointer;
+  }
+
+  .lrs-gallery__ph:hover {
+    background: rgba(255,255,255,.06);
+    border-color: rgba(255,154,77,.34);
+    color: var(--c-orange);
+  }
+
+  /* ---------------------------------------------------------------
+     SHOWS / PERFORMERS
+  --------------------------------------------------------------- */
+  .lrs-performers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .lrs-performer {
+    background: var(--c-card);
+    border-radius: var(--r);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid var(--c-border);
+    transition: border-color var(--ease);
+    box-shadow: 0 0 30px rgba(255,255,255,.035);
+  }
+
+  .lrs-performer--blue   { border-color: rgba(198,120,255,.22); }
+  .lrs-performer--orange { border-color: rgba(255,154,77,.18); }
+  .lrs-performer--purple { border-color: rgba(198,120,255,.18); }
+
+  .lrs-performer--blue:hover   { border-color: rgba(198,120,255,.48); box-shadow: 0 0 36px rgba(198,120,255,.12); }
+  .lrs-performer--orange:hover { border-color: rgba(255,154,77,.48); box-shadow: 0 0 36px rgba(255,154,77,.12); }
+  .lrs-performer--purple:hover { border-color: rgba(198,120,255,.48); box-shadow: 0 0 36px rgba(198,120,255,.12); }
+
+  .lrs-performer__ring {
+    width: 68px; height: 68px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .lrs-performer--blue   .lrs-performer__ring { background: rgba(198,120,255,.08); color: var(--c-purple); box-shadow: 0 0 20px rgba(198,120,255,.14); }
+  .lrs-performer--orange .lrs-performer__ring { background: rgba(255,154,77,.08);  color: var(--c-orange); box-shadow: 0 0 20px rgba(255,154,77,.1); }
+  .lrs-performer--purple .lrs-performer__ring { background: rgba(198,120,255,.08); color: var(--c-purple); box-shadow: 0 0 20px rgba(198,120,255,.1); }
+
+  .lrs-performer__name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--c-white);
+    margin: 0 0 0.3rem;
+  }
+
+  .lrs-performer__role {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--c-dim);
+    margin: 0;
+  }
+
+  .lrs-performer__details summary {
+    display: grid;
+    gap: 0.35rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .lrs-performer__details summary::-webkit-details-marker { display: none; }
+  .lrs-performer__details summary::marker { display: none; }
+
+  .lrs-performer__details summary::after {
+    content: "Ver detalle";
+    display: inline-flex;
+    justify-self: center;
+    margin-top: 0.65rem;
+    padding: 0.32rem 0.7rem;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 999px;
+    color: var(--c-orange);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .lrs-performer__details[open] summary::after {
+    content: "Ocultar detalle";
+  }
+
+  .lrs-performer__desc,
+  .lrs-performer__link {
+    margin: 1rem 0 0;
+    color: var(--c-muted);
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+
+  .lrs-performer__link {
+    color: var(--c-orange);
+    font-weight: 700;
+  }
+
+  /* ---------------------------------------------------------------
+     CÓMO LLEGAR
+  --------------------------------------------------------------- */
+  .lrs-location {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  .lrs-location__content {
+    background: var(--c-card);
+    border: 1px solid rgba(255,154,77,.18);
+    border-radius: var(--r-lg);
+    padding: 2rem;
+  }
+
+  .lrs-location__content .lrs-heading {
+    text-align: left;
+  }
+
+  .lrs-location__lead {
+    margin: 0 0 1.5rem;
+    text-align: left;
+  }
+
+  .lrs-location__details {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .lrs-location__details div {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .lrs-location__details dt {
+    color: var(--c-orange);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lrs-location__details dd {
+    margin: 0.3rem 0 0;
+    color: var(--c-white);
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .lrs-location__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lrs-location__map {
+    min-height: 420px;
+    overflow: hidden;
+    border: 1px solid rgba(198,120,255,.22);
+    border-radius: var(--r-lg);
+    background: rgba(255,255,255,.03);
+    box-shadow: 0 18px 56px rgba(0,0,0,.28);
+  }
+
+  .lrs-location__map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    filter: grayscale(0.15) contrast(1.05);
+  }
+
+  /* ---------------------------------------------------------------
+     NACE SOCIAL DE RENGO
+  --------------------------------------------------------------- */
+  .lrs-nace-section {
+    background: var(--c-darker);
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lrs-nace-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+  .lrs-nace-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .lrs-nace-glow--left  { background: rgba(255,154,77,.14); bottom: -150px; left: -150px; }
+  .lrs-nace-glow--right { background: rgba(198,120,255,.14); top: -150px; right: -150px; }
+
+  .lrs-nace__title {
+    font-family: 'Bebas Neue', 'Anton', system-ui, sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    color: var(--c-white);
+    margin: 0.5rem 0 2rem;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lrs-nace__text {
+    font-size: 1.05rem;
+    color: var(--c-muted);
+    line-height: 1.78;
+    margin: 0 0 1.1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lrs-nace__text--accent {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--c-white);
+    margin-top: 2rem;
+  }
+
+  /* ---------------------------------------------------------------
+     FAQ
+  --------------------------------------------------------------- */
+  .lrs-faq { display: flex; flex-direction: column; }
+
+  .lrs-faq__item { border-bottom: 1px solid rgba(255,255,255,.07); }
+  .lrs-faq__item:first-child { border-top: 1px solid rgba(255,255,255,.07); }
+
+  .lrs-faq-section .lrs-faq {
+    padding: 1rem 1.3rem;
+    border: 1px solid rgba(198,120,255,.28);
+    border-radius: var(--r-lg);
+    background: rgba(198,120,255,.035);
+    box-shadow: 0 0 34px rgba(198,120,255,.12);
+  }
+
+  .lrs-faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: var(--c-white);
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--ease);
+    user-select: none;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lrs-faq__question::-webkit-details-marker { display: none; }
+  .lrs-faq__question::marker { display: none; }
+  .lrs-faq__question:hover { color: var(--c-orange); }
+  .lrs-faq__question:focus-visible { outline: 2px solid var(--c-orange); outline-offset: 4px; border-radius: 4px; }
+
+  .lrs-faq__icon {
+    flex-shrink: 0;
+    color: var(--c-purple);
+    transition: transform 0.22s ease;
+  }
+
+  details[open] .lrs-faq__icon { transform: rotate(180deg); }
+
+  .lrs-faq__answer {
+    font-size: 0.88rem;
+    color: var(--c-muted);
+    line-height: 1.78;
+    padding: 0 0 1.2rem;
+    margin: 0;
+  }
+
+  /* ---------------------------------------------------------------
+     CTA FINAL
+  --------------------------------------------------------------- */
+  .lrs-cta-section {
+    background: var(--c-darker);
+    overflow: hidden;
+    text-align: center;
+    padding: 7rem 0 6rem;
+    position: relative;
+  }
+
+  .lrs-cta-bg  { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .lrs-cta-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .lrs-cta-glow--left  { background: rgba(198,120,255,.22); bottom: -150px; left: -100px; }
+  .lrs-cta-glow--right { background: rgba(255,154,77,.2); top: -100px; right: -100px; }
+
+  .lrs-cta__title {
+    font-family: 'Bebas Neue', 'Anton', system-ui, sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    color: var(--c-white);
+    margin: 0 0 1.25rem;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lrs-cta__desc {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--c-white);
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lrs-cta__credit {
+    margin: 1.5rem 0 0;
+    font-size: 0.78rem;
+    color: var(--c-dim);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------------------------------------------------------------
+     FLOATING WHATSAPP
+  --------------------------------------------------------------- */
+  .lrs-wa-float {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--c-green);
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 0.85rem 1.25rem 0.85rem 1rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 4px 22px rgba(37,211,102,.45);
+    transition: transform var(--ease), box-shadow var(--ease), background-color var(--ease);
+    -webkit-tap-highlight-color: transparent;
+    min-height: 48px;
+  }
+
+  .lrs-wa-float:hover {
+    background: #20c05a;
+    box-shadow: 0 6px 32px rgba(37,211,102,.65);
+    transform: translateY(-2px);
+    color: #ffffff;
+  }
+
+  .lrs-wa-float:focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; }
+
+  /* ---------------------------------------------------------------
+     FOOTER LATIN RENGO
+  --------------------------------------------------------------- */
+  .lrs-footer {
+    --c-white:  #ffffff;
+    --c-muted:  #c8c8d0;
+    --c-blue:   #54DFFF;
+    --c-orange: #FF9A4D;
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 0 5.5rem;
+    background:
+      radial-gradient(circle at 12% 30%, rgba(198,120,255,.16), transparent 18rem),
+      radial-gradient(circle at 88% 70%, rgba(255,154,77,.18), transparent 18rem),
+      #050505;
+    border-top: 1px solid rgba(255,154,77,.2);
+    color: var(--c-muted);
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+
+  .lrs-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,154,77,.08), rgba(198,120,255,.08), transparent);
+  }
+
+  .lrs-footer__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .lrs-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lrs-footer__brand img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 14px rgba(255,154,77,.34));
+  }
+
+  .lrs-footer__kicker,
+  .lrs-footer__title,
+  .lrs-footer__info p,
+  .lrs-footer__links span {
+    margin: 0;
+  }
+
+  .lrs-footer__kicker {
+    color: var(--c-orange);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lrs-footer__title {
+    color: var(--c-white);
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .lrs-footer__info {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .lrs-footer__links {
+    display: grid;
+    gap: 0.45rem;
+    justify-items: end;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .lrs-footer__links a {
+    color: var(--c-orange);
+    text-decoration: none;
+    text-shadow: 0 0 16px rgba(255,154,77,.3);
+  }
+
+  .lrs-footer__links a:hover,
+  .lrs-footer__links a:focus-visible {
+    color: var(--c-white);
+  }
+
+  /* ---------------------------------------------------------------
+     REDUCED MOTION
+  --------------------------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .lrs-btn, .lrs-ticket, .lrs-why__item, .lrs-wa-float, .lrs-faq__icon {
+      transition: none;
+    }
+    .lrs-btn--primary:hover,
+    .lrs-btn--wa:hover,
+    .lrs-ticket:hover,
+    .lrs-why__item:hover,
+    .lrs-wa-float:hover {
+      transform: none;
+    }
+  }
+
+  /* ---------------------------------------------------------------
+     RESPONSIVE — TABLET (≤ 900px)
+  --------------------------------------------------------------- */
+  @media (max-width: 900px) {
+    .lrs-page-header__inner {
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      min-height: 76px;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+    }
+
+    .lrs-page-header__brand-mark {
+      width: 132px;
+      height: 132px;
+    }
+
+    .lrs-page-header__brand-mark-wrap {
+      width: 66px;
+      height: 33px;
+    }
+
+    .lrs-page-header__brand-text {
+      font-size: 1.7rem;
+    }
+
+    .lrs-page-header__brand-social {
+      font-size: 1.85rem;
+    }
+
+    .lrs-page-header__nav {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-content: flex-start;
+      margin-inline: -1.5rem;
+      padding-inline: 1.5rem;
+    }
+
+    .lrs-page-header__cta {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+    }
+
+    .lrs-hero__inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    .lrs-hero__organizer { text-align: center; }
+    .lrs-hero__title { align-items: center; }
+    .lrs-chips        { justify-content: center; }
+    .lrs-hero__actions { justify-content: center; }
+    .lrs-hero__poster { order: -1; }
+
+    .lrs-hero__poster-frame {
+      width: min(340px, 72vw);
+      margin: 0 auto;
+    }
+
+    .lrs-why { grid-template-columns: repeat(4, 1fr); }
+
+    .lrs-event-strip__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lrs-gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 200px 200px 180px;
+    }
+    .lrs-gallery__item--tall { grid-row: span 1; }
+
+    .lrs-performers { grid-template-columns: repeat(3, 1fr); }
+
+    .lrs-location {
+      grid-template-columns: 1fr;
+    }
+
+    .lrs-nace__title { text-align: center; }
+    .lrs-nace__text  { text-align: center; }
+  }
+
+  /* ---------------------------------------------------------------
+     RESPONSIVE — MOBILE (≤ 640px)
+  --------------------------------------------------------------- */
+  @media (max-width: 640px) {
+    .lrs-page-header__brand {
+      gap: 0.35rem;
+    }
+
+    .lrs-page-header__brand-mark {
+      width: 112px;
+      height: 112px;
+    }
+
+    .lrs-page-header__brand-mark-wrap {
+      width: 56px;
+      height: 28px;
+    }
+
+    .lrs-page-header__brand-text {
+      font-size: 1.35rem;
+    }
+
+    .lrs-page-header__brand-social {
+      margin-left: -0.2rem;
+      font-size: 1.48rem;
+    }
+
+    .lrs-page-header__nav a {
+      min-height: 34px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.68rem;
+    }
+
+    .lrs-page-header__cta {
+      min-height: 36px;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.7rem;
+    }
+
+    .lrs-section     { padding: 3rem 0; }
+    .lrs-nace-section { padding: 4rem 0; }
+    .lrs-cta-section { padding: 4.5rem 0; }
+
+    .lrs-hero {
+      min-height: auto;
+      padding: 5.5rem 0 3.5rem;
+    }
+
+    .lrs-event-strip {
+      padding: 1rem 0 3rem;
+    }
+
+    .lrs-event-strip__grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .lrs-event-card {
+      min-height: 108px;
+      grid-template-columns: auto 1fr;
+      align-content: center;
+      align-items: center;
+      justify-items: start;
+      text-align: left;
+      column-gap: 0.85rem;
+    }
+
+    .lrs-event-card__icon {
+      grid-row: span 2;
+    }
+
+    .lrs-hero__title-line--lg { font-size: clamp(3rem, 16vw, 5rem); }
+    .lrs-hero__title-line--mega { font-size: clamp(3.6rem, 17vw, 5.8rem); }
+    .lrs-hero__title-line--sm { font-size: clamp(1.1rem, 5vw, 2rem); }
+    .lrs-hero__title-line--md { font-size: clamp(1.6rem, 8vw, 3rem); }
+
+    .lrs-hero__poster-frame { width: min(300px, 78vw); }
+
+    .lrs-hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .lrs-why {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .lrs-tickets {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .lrs-gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 150px);
+    }
+    .lrs-gallery__item--tall  { grid-row: span 1; }
+    .lrs-gallery__item--wide  { grid-column: span 2; }
+
+    .lrs-performers { grid-template-columns: 1fr; }
+
+    .lrs-location__content {
+      padding: 1.35rem;
+    }
+
+    .lrs-location__content .lrs-heading,
+    .lrs-location__lead {
+      text-align: center;
+    }
+
+    .lrs-location__actions {
+      display: grid;
+    }
+
+    .lrs-location__map,
+    .lrs-location__map iframe {
+      min-height: 320px;
+    }
+
+    .lrs-timeline__time {
+      font-size: 1.85rem;
+      letter-spacing: 0.035em;
+    }
+
+    .lrs-timeline__item {
+      grid-template-columns: 7.65rem 1fr;
+      padding: 1.35rem;
+    }
+
+    .lrs-footer__grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .lrs-footer__brand {
+      justify-content: center;
+    }
+
+    .lrs-footer__links {
+      justify-items: center;
+    }
+
+    .lrs-btn--lg { width: 100%; }
+
+    .lrs-wa-float__label { display: none; }
+    .lrs-wa-float {
+      width: 52px; height: 52px;
+      padding: 0;
+      border-radius: 50%;
+      justify-content: center;
+    }
+  }
+
+  /* ---------------------------------------------------------------
+     RESPONSIVE — SMALL MOBILE (≤ 400px)
+  --------------------------------------------------------------- */
+  @media (max-width: 400px) {
+    .lrs-container { padding: 0 1rem; }
+    .lrs-page-header__brand-mark {
+      width: 100px;
+      height: 100px;
+    }
+
+    .lrs-page-header__brand-mark-wrap {
+      width: 50px;
+      height: 25px;
+    }
+
+    .lrs-page-header__brand-text {
+      font-size: 1.18rem;
+    }
+
+    .lrs-page-header__brand-social {
+      font-size: 1.32rem;
+    }
+
+    .lrs-section-header { margin-bottom: 2rem; }
+
+    .lrs-hero__title-line--lg { font-size: clamp(2.75rem, 18vw, 4rem); }
+    .lrs-hero__title-line--mega { font-size: clamp(3.2rem, 18vw, 4.8rem); }
+    .lrs-hero__poster-frame { width: min(270px, 78vw); }
+
+    .lrs-timeline__item {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      text-align: center;
+    }
+    .lrs-timeline__time { text-align: center; font-size: 2.4rem; }
+
+    .lrs-why {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+    .lrs-why__item { padding: 1.1rem 0.75rem; }
+    .lrs-why__icon { font-size: 1.5rem; }
+    .lrs-why__text { font-size: 0.78rem; }
+
+    .lrs-gallery {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 130px);
+    }
+  }
+</style>

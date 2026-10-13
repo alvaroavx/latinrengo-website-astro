@@ -1,0 +1,546 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import LatinRengoAnalytics from '../features/latin-rengo/components/LatinRengoAnalytics.astro';
+import '../styles/latin-rengo.css';
+
+const WA_NUMBER  = '56979898502';
+const WA_MESSAGE = 'Hola! Quiero consultar sobre las clases de LatinRengo 🎶';
+const WA_HREF    = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MESSAGE)}`;
+const CONTACT    = '+56 9 7989 8502';
+const CONTACT_ANALYTICS = {
+  'data-lr-event': 'select_contact',
+  'data-lr-site-section': 'latin_rengo',
+  'data-lr-source-page': 'latin-rengo',
+  'data-lr-destination': 'whatsapp',
+  'data-lr-contact-method': 'whatsapp',
+  'data-lr-link-type': 'whatsapp',
+};
+
+const FACTS = [
+  { label: 'Cuándo',   value: 'Todos los sábados'  },
+  { label: 'Horario',  value: '18:00 a 20:00 hrs'  },
+  { label: 'Dónde',    value: 'Espacio Elementos'   },
+  { label: 'Contacto', value: CONTACT               },
+];
+
+const CLASS_CONTENT = [
+  { title: 'Movilidad',  detail: 'Calentamiento y movimiento consciente para entrar en calor y cuidar nuestros cuerpos.'  },
+  { title: 'Salsa',      detail: 'Pasos básicos, ritmo, desplazamientos y combinaciones para bailar con más confianza.'    },
+  { title: 'Bachata',    detail: 'Base, conexión, musicalidad y figuras simples para disfrutar el baile social.'           },
+  { title: 'Práctica',   detail: 'Un espacio para repetir, preguntar y ganar seguridad bailando.'                          },
+  { title: 'Comunidad',  detail: 'Un ambiente abierto para aprender sin presión y compartir con otras personas.'           },
+];
+
+const FOR_WHO = [
+  { emoji: '🕺', text: 'Quieres aprender salsa y bachata desde cero.' },
+  { emoji: '💃', text: 'Ya bailas y quieres practicar más.' },
+  { emoji: '🤝', text: 'Quieres conocer gente en un ambiente sano y entretenido.' },
+  { emoji: '🎉', text: 'Buscas una actividad distinta los sábados.' },
+  { emoji: '✨', text: 'Quieres ganar ritmo, coordinación y confianza.' },
+  { emoji: '🙌', text: 'No tienes pareja, pero igual quieres bailar.' },
+];
+
+const STEPS = [
+  { num: '01', title: 'Escríbenos',        body: 'Envíanos un mensaje por WhatsApp al ' + CONTACT + '.'                       },
+  { num: '02', title: 'Confirma tu lugar', body: 'Consulta disponibilidad para el próximo sábado.'                             },
+  { num: '03', title: 'Ven a bailar',      body: 'Llega con ropa cómoda y ganas de aprender. Sin pareja, sin experiencia.'    },
+];
+
+const FAQS = [
+  {
+    q: '¿Necesito saber bailar?',
+    a: '¡Para nada! 🙌 La clase está pensada exactamente para quienes parten desde cero. Vamos paso a paso, sin apuro y sin que nadie te juzgue.',
+  },
+  {
+    q: '¿Necesito ir con pareja?',
+    a: 'No, para nada 😄 Puedes venir solo/sola sin ningún problema. Rotamos durante la clase así que vas a bailar con todos.',
+  },
+  {
+    q: '¿Qué se baila?',
+    a: '¡Salsa y bachata! 🎵 Dos de los ritmos más bacanes del mundo, juntos en una misma clase cada sábado.',
+  },
+  {
+    q: '¿Qué estilo de salsa y bachata aprenderé?',
+    a: '¡Buena pregunta! 🕺 En salsa trabajamos Salsa Cubana en su modalidad Rueda de Casino, que es súper divertida porque se baila en grupo formando un círculo. En bachata bailamos Bachata Fusión, un estilo moderno y muy expresivo. ¡Los dos juntos son una combinación perfecta! 💃',
+  },
+  {
+    q: '¿Cuándo son las clases?',
+    a: 'Todos los sábados de 18:00 a 20:00 hrs ⏰ Perfectas para arrancar el fin de semana con energía.',
+  },
+  {
+    q: '¿Dónde son las clases?',
+    a: 'En Espacio Elementos 📍 Calle Nueva Tres #1036, Naranjal Norte, Rengo. Si necesitas cómo llegar escríbenos y te orientamos al tiro.',
+  },
+  {
+    q: '¿Qué debo llevar?',
+    a: 'Ropa cómoda, agua y buena onda 🌟 Con eso está todo. Si tienes zapatos o zapatillas cómodas para bailar, mejor aún.',
+  },
+  {
+    q: '¿Cómo me inscribo?',
+    a: `¡Súper fácil! Escríbenos por WhatsApp al ${CONTACT} 💬 y te contamos todo. En dos minutos quedas apuntado/a.`,
+  },
+  {
+    q: '¿Hay otros horarios durante la semana?',
+    a: 'Por ahora nos vemos los sábados de 18:00 a 20:00 hrs 🗓️ ¡Y te prometemos que vale mucho la pena!',
+  },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <BaseHead
+      title="LatinRengo | Clases de Salsa y Bachata en Rengo · Sábados 18:00–20:00"
+      description="Aprende salsa y bachata en Rengo todos los sábados de 18:00 a 20:00 hrs en Espacio Elementos. Sin pareja, sin experiencia previa. LatinRengo."
+    />
+  </head>
+  <body class="lr-page">
+    <a class="lr-skip-link" href="#contenido">Saltar al contenido</a>
+    <LatinRengoAnalytics sourcePage="latin-rengo" />
+
+    <header class="lr-topbar">
+      <div class="lr-shell lr-topbar__inner">
+        <a class="lr-topbar__brand" href="/" aria-label="LatinRengo, inicio">
+          <img src="/images/colaboradores/isotipo-latinrengo.png" alt="" width="56" height="56" />
+          <span>LatinRengo</span>
+        </a>
+        <nav class="lr-topbar__nav" aria-label="Navegación interna">
+          <a href="#clases">Clases</a>
+          <a href="#horario">Horario</a>
+          <a href="/latin-rengo-social">Social</a>
+          <a href="#como-empezar">Cómo empezar</a>
+          <a href="#ubicacion">Ubicación</a>
+          <a href="#preguntas">Preguntas</a>
+        </nav>
+        <a class="lr-topbar__cta" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
+          Consultar cupo
+        </a>
+      </div>
+    </header>
+
+    <main id="contenido">
+
+      <!-- HERO -->
+      <section class="lr-hero" aria-labelledby="lr-title">
+        <div class="lr-shell lr-hero__grid">
+          <div>
+            <p class="lr-kicker">LatinRengo · Clases de baile en Rengo</p>
+            <h1 id="lr-title">Clases de salsa y bachata en Rengo</h1>
+            <p class="lr-hero__subtitle">Todos los sábados · 18:00 a 20:00 hrs · Espacio Elementos</p>
+            <p class="lr-hero__lead">
+              LatinRengo es una comunidad abierta para quienes quieren aprender, practicar y disfrutar
+              la salsa y la bachata en Rengo. No necesitas pareja ni experiencia previa.
+            </p>
+            <ul class="lr-hero__features" aria-label="Características de las clases">
+              <li>Salsa y bachata</li>
+              <li>Sábados 18:00–20:00 hrs</li>
+              <li>No necesitas pareja</li>
+              <li>Comunidad LatinRengo</li>
+            </ul>
+            <div class="lr-actions">
+              <a class="lr-button" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
+                Consultar cupo por WhatsApp
+              </a>
+              <a class="lr-button lr-button--secondary" href="#horario">Ver horario</a>
+              <a class="lr-button lr-button--secondary" href="/latin-rengo-social">Guía LatinRengo Social</a>
+            </div>
+          </div>
+
+          <aside class="lr-purchase-card" aria-label="Información de las clases">
+            <figure class="lr-purchase-card__logo">
+              <img
+                src="/images/colaboradores/imagotipo-latinrengo.png"
+                alt="Logo de LatinRengo"
+                width="1106"
+                height="1013"
+              />
+            </figure>
+            <p class="lr-purchase-card__label">Clases regulares</p>
+            <dl class="lr-purchase-card__facts">
+              <div>
+                <dt>Cuándo</dt>
+                <dd>Todos los sábados</dd>
+              </div>
+              <div>
+                <dt>Horario</dt>
+                <dd>18:00 a 20:00 hrs</dd>
+              </div>
+              <div>
+                <dt>Lugar</dt>
+                <dd>Espacio Elementos</dd>
+              </div>
+              <div>
+                <dt>Clase</dt>
+                <dd>Salsa y bachata</dd>
+              </div>
+            </dl>
+            <a
+              class="lr-button lr-purchase-card__button"
+              href={WA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...CONTACT_ANALYTICS}
+            >
+              Consultar cupo por WhatsApp
+            </a>
+            <p class="lr-purchase-card__contact">{CONTACT}</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- FACTS STRIP -->
+      <section class="lr-facts" aria-label="Información rápida de las clases">
+        <div class="lr-shell">
+          <dl class="lr-facts__grid">
+            {FACTS.map((f) => (
+              <div class="lr-fact">
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <!-- ¿QUÉ ES LATINRENGO? -->
+      <section id="clases" class="lr-section" aria-labelledby="que-es-title">
+        <div class="lr-shell lr-two-column">
+          <div>
+            <p class="lr-kicker">Una comunidad abierta a la comunidad</p>
+            <h2 id="que-es-title">¿Qué es LatinRengo?</h2>
+          </div>
+          <div class="lr-prose">
+            <p>
+              LatinRengo es una comunidad de salsa y bachata en Rengo. Nace para abrir un espacio
+              cercano, constante y entretenido donde las personas puedan aprender a bailar, practicar,
+              conocer gente y disfrutar la música latina.
+            </p>
+            <p>
+              No necesitas experiencia previa ni venir con pareja. La clase está pensada para que
+              puedas integrarte desde lo básico, avanzar a tu ritmo y compartir con otras personas en
+              un ambiente amable y relajado.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMUNIDAD (green bg section) -->
+      <section class="lr-section lr-section--brand" aria-labelledby="comunidad-title">
+        <div class="lr-shell lr-brand-story">
+          <div>
+            <p class="lr-kicker">Una nueva comunidad</p>
+            <h2 id="comunidad-title">LatinRenguinos</h2>
+          </div>
+          <div class="lr-prose">
+            <p>
+              LatinRengo nace para crear nuevos espacios de encuentro, baile y colaboración. Es un
+              lugar donde las personas de Rengo pueden aprender a bailar, practicar lo que ya saben y
+              ser parte de una comunidad latina activa.
+            </p>
+            <p>
+              Las clases son abiertas, progresivas y sin presión. Cada sábado hay espacio para quienes
+              llegan por primera vez y para quienes ya llevan tiempo bailando.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PARA QUIÉN ES -->
+      <section class="lr-section" aria-labelledby="para-quien-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Para quién es</p>
+            <h2 id="para-quien-title">Esta clase es para ti si…</h2>
+          </div>
+          <ul class="lr-emoji-list" aria-label="Para quién son las clases">
+            {FOR_WHO.map((item) => (
+              <li class="lr-emoji-item">
+                <span class="lr-emoji-item__icon" aria-hidden="true">{item.emoji}</span>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- EN LA CLASE TRABAJAMOS -->
+      <section class="lr-section lr-section--cream" aria-labelledby="contenido-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Lo que aprenderás</p>
+            <h2 id="contenido-title">En la clase trabajamos</h2>
+          </div>
+          <div class="lr-amenity-grid">
+            {CLASS_CONTENT.map((item) => (
+              <article class="lr-amenity">
+                <h3>{item.title}</h3>
+                <p>{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- VALORES E INSCRIPCIÓN -->
+      <section class="lr-section" aria-labelledby="valores-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Inscripción</p>
+            <h2 id="valores-title">Valores e inscripción</h2>
+            <p class="lr-section__intro">
+              Consulta valores, disponibilidad e inscripción directamente por WhatsApp.
+            </p>
+          </div>
+          <div class="lr-actions">
+            <a class="lr-button lr-button--dark" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
+              Consultar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- HORARIO -->
+      <section id="horario" class="lr-section lr-section--red" aria-labelledby="horario-title">
+        <div class="lr-shell lr-two-column">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Programa de clases</p>
+            <h2 id="horario-title">Horario de clases</h2>
+            <p class="lr-section__intro">
+              Nos reunimos todos los sábados para aprender y practicar salsa y bachata en comunidad.
+            </p>
+          </div>
+          <ol class="lr-schedule">
+            <li>
+              <time>Sábados</time>
+              <strong>18:00 a 20:00 hrs · Espacio Elementos · Salsa y bachata</strong>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- CÓMO EMPEZAR -->
+      <section id="como-empezar" class="lr-section" aria-labelledby="como-empezar-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Próximos pasos</p>
+            <h2 id="como-empezar-title">¿Cómo empezar?</h2>
+            <p class="lr-section__intro">
+              Sumarte es simple. Escríbenos, consulta disponibilidad y ven a probar una clase.
+            </p>
+          </div>
+          <div class="lr-card-grid">
+            {STEPS.map((step) => (
+              <article class="lr-card">
+                <h3>{step.num}. {step.title}</h3>
+                <p>{step.body}</p>
+              </article>
+            ))}
+          </div>
+          <div class="lr-actions">
+            <a class="lr-button lr-button--dark" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
+              Quiero probar una clase
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- UBICACIÓN -->
+      <section id="ubicacion" class="lr-section lr-section--cream" aria-labelledby="ubicacion-title">
+        <div class="lr-shell lr-location">
+          <div>
+            <p class="lr-kicker">Cómo llegar</p>
+            <h2 id="ubicacion-title">Dónde estamos</h2>
+            <dl class="lr-facts__grid lr-location__details">
+              <div class="lr-fact">
+                <dt>Lugar</dt>
+                <dd>Espacio Elementos</dd>
+              </div>
+              <div class="lr-fact">
+                <dt>Dirección</dt>
+                <dd>Calle Nueva Tres #1036, Naranjal Norte, Rengo</dd>
+              </div>
+              <div class="lr-fact">
+                <dt>Referencias</dt>
+                <dd>Disponibles por WhatsApp</dd>
+              </div>
+              <div class="lr-fact">
+                <dt>Contacto</dt>
+                <dd>{CONTACT}</dd>
+              </div>
+            </dl>
+            <p class="lr-section__intro" style="margin-top:1.5rem;">
+              Las clases se realizan en Espacio Elementos, un espacio cultural y deportivo ubicado
+              en Naranjal Norte, Rengo.
+            </p>
+          </div>
+
+          <div class="lr-location__map lr-map-embed" aria-label="Mapa de Espacio Elementos, Rengo">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15523984.724979118!2d-85.91981606782967!3d-18.208300018110737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96649f38dc647c35%3A0x3b3408d56b800c51!2sEspacio%20Elementos!5e0!3m2!1ses-419!2scl!4v1781580163503!5m2!1ses-419!2scl"
+              width="600"
+              height="450"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Mapa de Espacio Elementos, Rengo"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="preguntas" class="lr-section" aria-labelledby="preguntas-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Antes de asistir</p>
+            <h2 id="preguntas-title">Preguntas frecuentes</h2>
+          </div>
+          <div class="lr-faq">
+            {FAQS.map((faq) => (
+              <details>
+                <summary>{faq.q}</summary>
+                <p>{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA FINAL -->
+      <section class="lr-section lr-section--story lr-final" aria-labelledby="cta-final-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Sé parte del comienzo</p>
+            <h2 id="cta-final-title">Súmate a LatinRengo</h2>
+            <div class="lr-closing-copy">
+              <p>Ven a aprender salsa y bachata en un espacio cercano, entretenido y abierto a la comunidad.</p>
+              <p>Todos los sábados nos reunimos para bailar, practicar y seguir construyendo la comunidad latina de Rengo.</p>
+              <p>Todos los sábados, 18:00 a 20:00 hrs.</p>
+            </div>
+          </div>
+          <div class="lr-actions">
+            <a class="lr-button" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
+              Consultar cupo por WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="lr-footer">
+      <div class="lr-shell lr-footer__inner">
+        <div>
+          <p>LatinRengo · Clases de salsa y bachata en Rengo</p>
+          <p>Sábados de 18:00 a 20:00 hrs · Espacio Elementos</p>
+          <p>Calle Nueva Tres #1036, Naranjal Norte, Rengo</p>
+        </div>
+        <div>
+          <p>
+            Instagram:
+            <a href="https://instagram.com/latin.rengo" target="_blank" rel="noopener noreferrer">
+              @latin.rengo
+            </a>
+          </p>
+          <p>WhatsApp: <a href={WA_HREF} {...CONTACT_ANALYTICS}>{CONTACT}</a></p>
+          <p>LatinRengo · {currentYear}</p>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      class="lr-mobile-buy"
+      href={WA_HREF}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Consultar cupo para las clases de LatinRengo por WhatsApp"
+      {...CONTACT_ANALYTICS}
+    >
+      <span class="lr-floating-buy__desktop">Consultar por WhatsApp</span>
+      <span class="lr-floating-buy__mobile">WhatsApp</span>
+    </a>
+  </body>
+</html>
+
+<style>
+  /* Emoji pills — "Para quién es" */
+  .lr-emoji-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+  }
+  .lr-emoji-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 1.2rem;
+    background: linear-gradient(135deg, #fff8ec, #fffdf8);
+    border: 1.5px solid var(--lr-gold, #efb938);
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--lr-ink, #1a120b);
+    box-shadow: 0 2px 8px rgba(239, 185, 56, 0.18), 0 0 0 0 rgba(239,185,56,0);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: default;
+  }
+  .lr-emoji-item:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(239, 185, 56, 0.38);
+  }
+  .lr-emoji-item__icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  /* Google Maps embed */
+  .lr-map-embed {
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+    min-height: 0 !important;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    display: block;
+    box-shadow: 0 4px 24px rgba(70, 37, 23, 0.12);
+  }
+  .lr-map-embed iframe {
+    display: block;
+    width: 100%;
+    height: 380px;
+    border: 0;
+    border-radius: 1.25rem;
+  }
+  @media (max-width: 800px) {
+    .lr-map-embed iframe {
+      height: 280px;
+    }
+    .lr-emoji-list {
+      gap: 0.55rem;
+    }
+    .lr-emoji-item {
+      font-size: 0.82rem;
+      padding: 0.55rem 0.95rem;
+    }
+  }
+  @media (max-width: 560px) {
+    .lr-map-embed iframe {
+      height: 240px;
+    }
+    .lr-emoji-item {
+      font-size: 0.78rem;
+      padding: 0.5rem 0.8rem;
+    }
+    .lr-emoji-item__icon {
+      font-size: 1.1rem;
+    }
+  }
+</style>

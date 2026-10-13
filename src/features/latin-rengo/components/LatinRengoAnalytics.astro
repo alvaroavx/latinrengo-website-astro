@@ -1,0 +1,347 @@
+---
+import { gaConsentStorageKey, gaMeasurementId } from '../config/analytics';
+
+interface Props {
+	sourcePage: string;
+	initialEvent?: 'select_menu';
+}
+
+const { sourcePage, initialEvent } = Astro.props;
+const shouldRenderAnalytics = Boolean(gaMeasurementId);
+const initialEventPayload = initialEvent
+	? {
+			eventName: initialEvent,
+			params: {
+				site_section: 'menu',
+				source_page: sourcePage,
+				link_type: 'page_load',
+			},
+		}
+	: null;
+---
+
+{shouldRenderAnalytics && (
+	<>
+<div
+	class="lr-privacy-controls"
+	data-lr-analytics-root
+	data-source-page={sourcePage}
+	aria-live="polite"
+>
+	<section
+		class="lr-privacy-panel"
+		aria-labelledby="lr-privacy-title"
+		aria-describedby="lr-privacy-description"
+		data-lr-privacy-panel
+		hidden
+	>
+		<div>
+			<h2 id="lr-privacy-title">Estadísticas</h2>
+			<p id="lr-privacy-description">
+				Usamos estadísticas para entender cómo se consulta esta guía y mejorar la experiencia
+				del evento.
+			</p>
+		</div>
+		<div class="lr-privacy-panel__actions">
+			<button type="button" data-lr-analytics-accept>Aceptar estadísticas</button>
+			<button type="button" data-lr-analytics-decline>Continuar sin estadísticas</button>
+		</div>
+	</section>
+	<button type="button" class="lr-privacy-preferences" data-lr-privacy-open hidden>
+		Preferencias de privacidad
+	</button>
+</div>
+
+<script
+	define:vars={{
+		measurementId: gaMeasurementId,
+		consentStorageKey: gaConsentStorageKey,
+		sourcePage,
+		initialEventPayload,
+	}}
+>
+	const allowedEvents = new Set([
+		'select_menu',
+		'select_schedule',
+		'select_map',
+		'select_contact',
+		'view_artist_poster',
+		'select_ticket_contact',
+		'qr_bridge_continue',
+		'select_main_latinrengo',
+	]);
+
+	const parameterMap = {
+		lrSiteSection: 'site_section',
+		lrSourcePage: 'source_page',
+		lrDestination: 'destination',
+		lrArtistSlug: 'artist_slug',
+		lrContactMethod: 'contact_method',
+		lrLinkType: 'link_type',
+	};
+
+	const deniedConsent = {
+		analytics_storage: 'denied',
+		ad_storage: 'denied',
+		ad_user_data: 'denied',
+		ad_personalization: 'denied',
+	};
+
+	const grantedAnalyticsConsent = {
+		analytics_storage: 'granted',
+		ad_storage: 'denied',
+		ad_user_data: 'denied',
+		ad_personalization: 'denied',
+	};
+
+	window.dataLayer = window.dataLayer || [];
+	window.gtag =
+		window.gtag ||
+		function gtag() {
+			window.dataLayer.push(arguments);
+		};
+
+	window.gtag('consent', 'default', deniedConsent);
+
+	let analyticsLoaded = false;
+	let initialEventSent = false;
+
+	const root = document.querySelector('[data-lr-analytics-root][data-source-page="' + sourcePage + '"]');
+	const panel = root?.querySelector('[data-lr-privacy-panel]');
+	const preferencesButton = root?.querySelector('[data-lr-privacy-open]');
+	const acceptButton = root?.querySelector('[data-lr-analytics-accept]');
+	const declineButton = root?.querySelector('[data-lr-analytics-decline]');
+
+	function getStoredConsent() {
+		try {
+			return window.localStorage.getItem(consentStorageKey);
+		} catch {
+			return null;
+		}
+	}
+
+	function setStoredConsent(value) {
+		try {
+			window.localStorage.setItem(consentStorageKey, value);
+		} catch {
+			// Navigation must keep working even when storage is unavailable.
+		}
+	}
+
+	function hasAnalyticsConsent() {
+		return getStoredConsent() === 'granted';
+	}
+
+	function normalizeToken(value) {
+		if (!value) return undefined;
+
+		const normalized = String(value).trim().toLowerCase();
+		if (/^\d+$/.test(normalized)) return undefined;
+		if (!/^[a-z0-9_-]+$/.test(normalized)) return undefined;
+
+		return normalized;
+	}
+
+	function sanitizeParams(rawParams) {
+		return Object.entries(rawParams).reduce((params, [key, value]) => {
+			const normalized = normalizeToken(value);
+			if (normalized) params[key] = normalized;
+			return params;
+		}, {});
+	}
+
+	function collectParams(element) {
+		return Object.entries(parameterMap).reduce((params, [datasetKey, eventParam]) => {
+			if (Object.prototype.hasOwnProperty.call(element.dataset, datasetKey)) {
+				const normalized = normalizeToken(element.dataset[datasetKey]);
+				if (normalized) params[eventParam] = normalized;
+			}
+			return params;
+		}, {});
+	}
+
+	function trackEvent(eventName, params = {}) {
+		if (!allowedEvents.has(eventName)) return false;
+		if (!hasAnalyticsConsent()) return false;
+		if (typeof window.gtag !== 'function') return false;
+
+		const safeParams = sanitizeParams(params);
+		window.gtag('event', eventName, safeParams);
+		window.__latinRengoAnalyticsLastEvent = { eventName, params: safeParams };
+		return true;
+	}
+
+	function maybeSendInitialEvent() {
+		if (!initialEventPayload || initialEventSent) return;
+		if (trackEvent(initialEventPayload.eventName, initialEventPayload.params)) {
+			initialEventSent = true;
+		}
+	}
+
+	function loadAnalytics() {
+		if (!measurementId || analyticsLoaded) {
+			maybeSendInitialEvent();
+			return;
+		}
+
+		analyticsLoaded = true;
+		window.gtag('consent', 'update', grantedAnalyticsConsent);
+		window.gtag('js', new Date());
+		window.gtag('config', measurementId);
+
+		const tag = document.createElement('script');
+		tag.async = true;
+		tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+		document.head.appendChild(tag);
+
+		maybeSendInitialEvent();
+	}
+
+	function showPanel() {
+		if (panel) panel.hidden = false;
+		if (preferencesButton) preferencesButton.hidden = true;
+	}
+
+	function hidePanel() {
+		if (panel) panel.hidden = true;
+		if (preferencesButton) preferencesButton.hidden = false;
+	}
+
+	function grantAnalytics() {
+		setStoredConsent('granted');
+		hidePanel();
+		loadAnalytics();
+	}
+
+	function denyAnalytics() {
+		setStoredConsent('denied');
+		window.gtag('consent', 'update', deniedConsent);
+		hidePanel();
+	}
+
+	document.addEventListener('click', (event) => {
+		const target = event.target instanceof Element ? event.target.closest('[data-lr-event]') : null;
+		if (!target) return;
+
+		const eventName = target.dataset.lrEvent;
+		if (!eventName) return;
+
+		trackEvent(eventName, collectParams(target));
+	});
+
+	acceptButton?.addEventListener('click', grantAnalytics);
+	declineButton?.addEventListener('click', denyAnalytics);
+	preferencesButton?.addEventListener('click', showPanel);
+
+	if (hasAnalyticsConsent()) {
+		hidePanel();
+		loadAnalytics();
+	} else if (getStoredConsent() === 'denied') {
+		hidePanel();
+	} else {
+		showPanel();
+	}
+
+	window.__latinRengoAnalytics = {
+		getConsent: getStoredConsent,
+		hasAnalyticsConsent,
+		trackEvent,
+		openPreferences: showPanel,
+	};
+</script>
+
+<style>
+	.lr-privacy-panel[hidden],
+	.lr-privacy-preferences[hidden] {
+		display: none;
+	}
+
+	.lr-privacy-panel {
+		position: fixed;
+		z-index: 90;
+		right: 1rem;
+		bottom: max(1rem, env(safe-area-inset-bottom));
+		left: 1rem;
+		display: grid;
+		gap: 0.85rem;
+		border: 1px solid rgba(255, 245, 232, 0.24);
+		border-radius: 16px;
+		background: rgba(9, 6, 21, 0.96);
+		color: #fff5e8;
+		box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+		padding: 1rem;
+	}
+
+	.lr-privacy-panel h2 {
+		color: inherit;
+		font-size: 1rem;
+		line-height: 1.2;
+		margin: 0 0 0.2rem;
+	}
+
+	.lr-privacy-panel p {
+		color: rgba(255, 245, 232, 0.82);
+		font-size: 0.94rem;
+		line-height: 1.45;
+		margin: 0;
+	}
+
+	.lr-privacy-panel__actions {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.lr-privacy-panel button,
+	.lr-privacy-preferences {
+		min-height: 44px;
+		border: 1px solid rgba(255, 245, 232, 0.22);
+		border-radius: 999px;
+		cursor: pointer;
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 850;
+		padding: 0.72rem 1rem;
+	}
+
+	.lr-privacy-panel button:first-child {
+		background: #ff742f;
+		color: #15040a;
+	}
+
+	.lr-privacy-panel button:last-child,
+	.lr-privacy-preferences {
+		background: rgba(255, 245, 232, 0.08);
+		color: #fff5e8;
+	}
+
+	.lr-privacy-panel button:focus-visible,
+	.lr-privacy-preferences:focus-visible {
+		outline: 3px solid #25d7df;
+		outline-offset: 4px;
+	}
+
+	.lr-privacy-preferences {
+		position: fixed;
+		z-index: 89;
+		left: 1rem;
+		bottom: max(4.5rem, calc(env(safe-area-inset-bottom) + 4.5rem));
+		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	}
+
+	@media (min-width: 680px) {
+		.lr-privacy-panel {
+			right: auto;
+			width: min(34rem, calc(100vw - 2rem));
+		}
+
+		.lr-privacy-panel__actions {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.lr-privacy-preferences {
+			bottom: max(1rem, env(safe-area-inset-bottom));
+		}
+	}
+</style>
+	</>
+)}

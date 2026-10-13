@@ -1,0 +1,73 @@
+---
+import LatinRengoAnalytics from './LatinRengoAnalytics.astro';
+import LatinRengoSocialLayout from '../layouts/LatinRengoSocialLayout.astro';
+import {
+	latinRengoSocialEvent as event,
+	menuPath,
+	socialPath,
+} from '../content/social';
+
+const pageTitle = 'LatinRengo Social - guía vigente';
+const pageDescription =
+	'Página de referencia para códigos QR de LatinRengo Social. Accede a la guía vigente del evento.';
+---
+
+<LatinRengoSocialLayout
+	title={pageTitle}
+	description={pageDescription}
+	canonicalPath={socialPath}
+	noindex
+>
+	<LatinRengoAnalytics sourcePage="latin-rengo-v3" />
+	<main id="contenido" data-latin-rengo class="lr-page lr-bridge-page">
+		<section class="lr-hero lr-bridge" aria-labelledby="lr-bridge-title">
+			<div class="lr-hero__inner">
+				<p class="lr-eyebrow">Referencia QR temporal</p>
+				<h1 id="lr-bridge-title">{event.shortName}</h1>
+				<div class="lr-hero__facts" aria-label="Resumen del evento">
+					<p>
+						<time datetime="2026-07-18">{event.dateLabel}</time>
+					</p>
+					<p>{event.venueName}</p>
+					<p>{event.quickSummary}</p>
+				</div>
+				<p class="lr-bridge__copy">
+					Esta URL se mantiene activa para los códigos QR impresos. La información vigente
+					del evento está en la guía LatinRengo Social.
+				</p>
+				<nav class="lr-quick-nav" aria-label="Accesos principales">
+					<a
+						href={socialPath}
+						data-lr-event="qr_bridge_continue"
+						data-lr-site-section="qr_bridge"
+						data-lr-source-page="latin-rengo-v3"
+						data-lr-destination="social_guide"
+						data-lr-link-type="internal"
+					>
+						Ir a la guía vigente
+					</a>
+					<a
+						href={menuPath}
+						data-lr-event="qr_bridge_continue"
+						data-lr-site-section="qr_bridge"
+						data-lr-source-page="latin-rengo-v3"
+						data-lr-destination="menu"
+						data-lr-link-type="internal"
+					>
+						Ver menú
+					</a>
+					<a
+						href={`${socialPath}#programa`}
+						data-lr-event="qr_bridge_continue"
+						data-lr-site-section="qr_bridge"
+						data-lr-source-page="latin-rengo-v3"
+						data-lr-destination="schedule"
+						data-lr-link-type="anchor"
+					>
+						Programación
+					</a>
+				</nav>
+			</div>
+		</section>
+	</main>
+</LatinRengoSocialLayout>

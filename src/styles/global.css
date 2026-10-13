@@ -1,0 +1,11 @@
+/* Base tipográfica compartida por clases y archivo histórico. */
+@font-face { font-family: 'Atkinson'; src: url('/fonts/atkinson-regular.woff') format('woff'); font-display: swap; font-weight: 400; }
+@font-face { font-family: 'Atkinson'; src: url('/fonts/atkinson-bold.woff') format('woff'); font-display: swap; font-weight: 700; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Atkinson', system-ui, sans-serif; font-size: 18px; line-height: 1.65; overflow-x: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: 'Atkinson', system-ui, sans-serif; font-weight: 700; line-height: 1.05; letter-spacing: 0; text-transform: uppercase; overflow-wrap: anywhere; }
+p, ul, ol { margin: 0; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
