@@ -2,6 +2,18 @@
 	color-scheme: dark;
 }
 
+.lr-past-event-notice {
+	padding: 1rem 1.5rem;
+	background: #f5c64d;
+	color: #24141a;
+	font-weight: 700;
+	text-align: center;
+}
+
+.lr-past-event-notice a {
+	text-decoration: underline;
+}
+
 html {
 	background: #090615;
 }

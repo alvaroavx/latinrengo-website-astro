@@ -4,7 +4,6 @@ import LatinRengoAnalytics from './LatinRengoAnalytics.astro';
 import LatinRengoSocialLayout from '../layouts/LatinRengoSocialLayout.astro';
 import {
 	archivePath,
-	createEventJsonLd,
 	formatCLP,
 	latinRengoSocialEvent as event,
 	menuPath,
@@ -14,19 +13,20 @@ import {
 	publicTickets,
 } from '../content/social';
 
-const pageTitle = 'LatinRengo Social - Primer aniversario';
+const pageTitle = 'LatinRengo Social 2026 | Edición anterior';
 const pageDescription =
-	'Guía pública de LatinRengo Social: fecha, programa, artistas, entradas, menú y contacto autorizado.';
+	'Registro de LatinRengo Social del 18 de julio de 2026: programa, artistas y guía de esa edición. El evento ya se realizó.';
 ---
 
 <LatinRengoSocialLayout
 	title={pageTitle}
 	description={pageDescription}
 	canonicalPath="/latin-rengo-social"
-	jsonLd={createEventJsonLd()}
+	noindex
 >
 	<LatinRengoAnalytics sourcePage="latin-rengo-social" />
 	<main id="contenido" data-latin-rengo class="lr-page lr-guide">
+		<p class="lr-past-event-notice">Esta edición se realizó el 18 de julio de 2026. El programa, los precios y el menú son un registro histórico; <a href="/sociales">consulta aquí por próximos sociales</a>.</p>
 		<section class="lr-hero" aria-labelledby="lr-title">
 			<div class="lr-hero__inner">
 				<p class="lr-eyebrow">{event.edition}</p>
@@ -50,24 +50,16 @@ const pageDescription =
 						Programación
 					</a>
 					<a href={menuPath}>Menú</a>
-					<a href="#entradas">Entradas</a>
+					<a href="#entradas">Entradas de 2026</a>
 					<a href="#como-llegar">Cómo llegar</a>
 					<a href="#contacto">Contacto</a>
 				</nav>
-				<div class="lr-ticket-strip" aria-label="Resumen de entradas">
-					{publicTickets.map((ticket) => (
-						<span>
-							<strong>{ticket.label}</strong> {formatCLP(ticket.price)}
-							{ticket.note && <small>{ticket.note}</small>}
-						</span>
-					))}
-				</div>
 			</div>
 		</section>
 
 		<section class="lr-section lr-section--tight" aria-labelledby="lr-access-title">
 			<div class="lr-section__heading">
-				<p class="lr-kicker">Antes y durante el evento</p>
+						<p class="lr-kicker">Registro de la edición 2026</p>
 				<h2 id="lr-access-title">Accesos útiles</h2>
 			</div>
 			<div class="lr-action-grid">
@@ -81,11 +73,11 @@ const pageDescription =
 					data-lr-link-type="anchor"
 				>
 					<span>Ver horarios</span>
-					<small>Clase, social, presentaciones y cierre.</small>
+						<small>Clase, social, presentaciones y cierre de 2026.</small>
 				</a>
 				<a class="lr-action" href={menuPath}>
 					<span>Ver menú</span>
-					<small>Comida y bebestibles confirmados.</small>
+						<small>Menú de la edición de 2026.</small>
 				</a>
 				<a
 					class="lr-action"
@@ -102,7 +94,7 @@ const pageDescription =
 				</a>
 				<a class="lr-action" href="#como-llegar">
 					<span>Cómo llegar</span>
-					<small>Mapa confirmado del recinto.</small>
+						<small>Recinto de la edición de 2026.</small>
 				</a>
 			</div>
 		</section>
@@ -173,32 +165,21 @@ const pageDescription =
 
 		<section id="entradas" class="lr-section" aria-labelledby="lr-tickets-title">
 			<div class="lr-section__heading">
-				<p class="lr-kicker">Valores confirmados</p>
-				<h2 id="lr-tickets-title">Entradas</h2>
+				<p class="lr-kicker">Registro histórico</p>
+				<h2 id="lr-tickets-title">Entradas de 2026</h2>
+				<p>Estos valores correspondieron solo al evento del 18 de julio de 2026. No hay entradas vigentes para esa edición.</p>
 			</div>
 			<div class="lr-price-list">
 				{publicTickets.map((ticket) => (
 					<article class="lr-price-row">
 						<div>
 							<h3>{ticket.label}</h3>
-							{ticket.note && <p>{ticket.note}</p>}
 						</div>
 						<strong>{formatCLP(ticket.price)}</strong>
 					</article>
 				))}
 			</div>
-			<a
-				class="lr-primary-cta"
-				href={event.contact.whatsappHref}
-				data-lr-event="select_ticket_contact"
-				data-lr-site-section="tickets"
-				data-lr-source-page="latin-rengo-social"
-				data-lr-destination="whatsapp"
-				data-lr-contact-method="whatsapp"
-				data-lr-link-type="whatsapp"
-			>
-				Consultar entradas por WhatsApp
-			</a>
+			<a class="lr-primary-cta" href="/sociales">Consultar próximos sociales</a>
 		</section>
 
 		<section id="como-llegar" class="lr-section" aria-labelledby="lr-place-title">
@@ -309,8 +290,8 @@ const pageDescription =
 				<h2 id="lr-relation-title">Una comunidad, una noche especial</h2>
 			</div>
 			<p>
-				LatinRengo Social es la guía pública del evento de aniversario. La página principal de
-				LatinRengo mantiene su identidad de clases y comunidad regular.
+				Esta guía conserva la edición de aniversario de 2026. Para conocer los encuentros de baile
+				de LatinRengo, visita la página de sociales.
 			</p>
 			<a
 				href="/"
@@ -320,7 +301,7 @@ const pageDescription =
 				data-lr-destination="latin_rengo"
 				data-lr-link-type="internal"
 			>
-				Ir a LatinRengo
+				Ir a clases LatinRengo
 			</a>
 		</section>
 	</main>
@@ -337,5 +318,6 @@ const pageDescription =
 		</a>
 		<a href={menuPath}>Menú del evento</a>
 		<a href={archivePath}>Ver archivo de LatinRengo Social</a>
+		<a href="/sociales">Sociales de salsa y bachata</a>
 	</footer>
 </LatinRengoSocialLayout>

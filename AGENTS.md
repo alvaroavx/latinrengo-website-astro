@@ -1,6 +1,7 @@
 # LatinRengo
 
 - Proyecto Astro independiente. Leer README.md y docs/migracion.md antes de editar.
+- Para ubicar flujos y límites actuales, usar docs/README.md y docs/ia-first.md; contrastar cada afirmación con src/.
 - Trabajar en este repositorio; no modificar el sitio de Espacio Elementos por arrastre.
 - Mantener exclusivamente identidad, contenido y recursos de LatinRengo.
 - Conservar las referencias reales a Espacio Elementos como recinto o colaborador.

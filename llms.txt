@@ -1,0 +1,15 @@
+# LatinRengo — guía del repositorio para asistentes
+
+> Sitio Astro independiente de clases, presentaciones, sociales e historia de LatinRengo.
+> Este archivo orienta la lectura del repositorio; no afirma que se publique en el sitio web.
+
+- [README](README.md): resumen y comandos iniciales.
+- [Reglas de trabajo](AGENTS.md): límites del repositorio y validación.
+- [Índice documental](docs/README.md): mapa de documentos.
+- [Guía IA First](docs/ia-first.md): fuentes de verdad, estados de evidencia y preguntas frecuentes.
+- [Mapa técnico](docs/mapa-tecnico.md): rutas, layouts, SEO, analítica y contenido.
+- [Contenido editorial](docs/contenido-editorial.md): primer Social histórico y datos pendientes del segundo.
+- [Operación](docs/operacion-y-validacion.md): build, comprobaciones y límites de publicación.
+
+La implementación en `src/` prevalece sobre esta guía. No inferir años, sede,
+precios, artistas ni disponibilidad; no reproducir datos bancarios o personales.

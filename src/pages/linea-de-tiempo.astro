@@ -1,0 +1,93 @@
+---
+import MarketingLayout from '../components/MarketingLayout.astro';
+import '../styles/linea-de-tiempo.css';
+
+const milestones = [
+  {
+    date: '17 de mayo de 2025',
+    datetime: '2025-05-17',
+    title: 'La primera clase de LatinRengo',
+    description: 'Comenzamos a reunirnos para aprender y compartir salsa y bachata en Rengo.',
+  },
+  {
+    date: '2025',
+    title: 'Primera presentación en la Gala Elemental',
+    description: 'El Team LatinRengo presentó «Qué Pecao», una bachata, en la Gala Elemental 2025.',
+  },
+  {
+    date: '17 de mayo de 2026',
+    datetime: '2026-05-17',
+    title: 'Un año de LatinRengo',
+    description: 'Cumplimos nuestro primer año de clases, baile y comunidad.',
+  },
+  {
+    date: '18 de julio de 2026',
+    datetime: '2026-07-18',
+    title: 'Nuestro primer Social',
+    description: 'Realizamos el primer LatinRengo Social: una fiesta de salsa y bachata que fue un éxito para nuestra comunidad.',
+    href: '/latin-rengo-social',
+    linkText: 'Recordar la primera edición',
+  },
+];
+---
+
+<MarketingLayout
+  title="Nuestra historia | Línea de tiempo de LatinRengo"
+  description="Conoce los hitos de LatinRengo: primera clase en 2025, Gala Elemental, Bailando Chile, primer aniversario, primer Social y el próximo encuentro."
+  sourcePage="linea-de-tiempo"
+>
+  <section class="lr-hero lr-service-hero" aria-labelledby="page-title">
+    <div class="lr-shell">
+      <p class="lr-kicker">LatinRengo desde 2025</p>
+      <h1 id="page-title">Nuestra historia</h1>
+      <p class="lr-hero__lead timeline-intro">Una línea de tiempo de clases, presentaciones y encuentros que han hecho crecer nuestra comunidad de salsa y bachata en Rengo.</p>
+    </div>
+  </section>
+
+  <section class="lr-section" aria-labelledby="hitos-title">
+    <div class="lr-shell">
+      <div class="lr-section__heading">
+        <p class="lr-kicker">El camino recorrido</p>
+        <h2 id="hitos-title">Hitos de LatinRengo</h2>
+      </div>
+      <ol class="timeline-list">
+        {milestones.map((milestone) => (
+          <li class="timeline-item">
+            {milestone.datetime
+              ? <time class="timeline-date" datetime={milestone.datetime}>{milestone.date}</time>
+              : <span class="timeline-date">{milestone.date}</span>}
+            <h3>{milestone.title}</h3>
+            <p>{milestone.description}</p>
+            {milestone.href && <div class="lr-actions"><a class="lr-button lr-button--dark" href={milestone.href}>{milestone.linkText}</a></div>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="lr-section lr-section--cream" aria-labelledby="bailando-title">
+    <div class="lr-shell lr-two-column">
+      <div>
+        <p class="lr-kicker">4 de julio</p>
+        <h2 id="bailando-title">LatinRengo en Bailando Chile</h2>
+      </div>
+      <div class="lr-prose">
+        <p>LatinRengo compitió en Bailando Chile con «Inocente», una coreografía de bachata en dúo de Laura y Álvaro.</p>
+        <p>Esta presentación forma parte de nuestra historia de baile junto a las clases, la gala y los sociales.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lr-section" aria-labelledby="segundo-title">
+    <div class="lr-shell">
+      <div class="timeline-list">
+        <article class="timeline-item timeline-item--next">
+          <span class="timeline-date">Próximo · 7 de noviembre</span>
+          <h2 id="segundo-title">Vamos por el segundo Social</h2>
+          <p>Estamos organizando una nueva fiesta de salsa y bachata para volver a encontrarnos en la pista. Los detalles de esta edición se comunicarán en la página de sociales.</p>
+          <div class="lr-actions"><a class="lr-button lr-button--dark" href="/sociales">Conocer el segundo Social</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

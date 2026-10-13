@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import LatinRengoAnalytics from '../features/latin-rengo/components/LatinRengoAnalytics.astro';
+import { SITE_URL } from '../consts';
 import '../styles/latin-rengo.css';
 
 const WA_NUMBER  = '56979898502';
@@ -86,14 +87,26 @@ const FAQS = [
 ];
 
 const currentYear = new Date().getFullYear();
+const homeUrl = new URL('/', SITE_URL).toString();
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'LatinRengo',
+  url: homeUrl,
+  logo: new URL('/images/colaboradores/imagotipo-latinrengo.png', SITE_URL).toString(),
+  description: 'Clases, presentaciones y fiestas sociales de salsa y bachata en Rengo.',
+  areaServed: { '@type': 'Place', name: 'Rengo, Chile' },
+  sameAs: ['https://instagram.com/latin.rengo'],
+};
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <BaseHead
-      title="LatinRengo | Clases de Salsa y Bachata en Rengo · Sábados 18:00–20:00"
-      description="Aprende salsa y bachata en Rengo todos los sábados de 18:00 a 20:00 hrs en Espacio Elementos. Sin pareja, sin experiencia previa. LatinRengo."
+      title="LatinRengo | Clases, presentaciones y sociales de salsa y bachata en Rengo"
+      description="Aprende salsa y bachata en Rengo con LatinRengo. Clases los sábados en Espacio Elementos, presentaciones de baile y fiestas sociales. Consulta por WhatsApp."
+      jsonLd={organizationJsonLd}
     />
   </head>
   <body class="lr-page">
@@ -106,10 +119,12 @@ const currentYear = new Date().getFullYear();
           <img src="/images/colaboradores/isotipo-latinrengo.png" alt="" width="56" height="56" />
           <span>LatinRengo</span>
         </a>
-        <nav class="lr-topbar__nav" aria-label="Navegación interna">
+        <nav class="lr-topbar__nav" aria-label="Navegación principal">
           <a href="#clases">Clases</a>
+          <a href="/presentaciones">Presentaciones</a>
+          <a href="/sociales">Fiestas sociales</a>
+          <a href="/linea-de-tiempo">Nuestra historia</a>
           <a href="#horario">Horario</a>
-          <a href="/latin-rengo-social">Social</a>
           <a href="#como-empezar">Cómo empezar</a>
           <a href="#ubicacion">Ubicación</a>
           <a href="#preguntas">Preguntas</a>
@@ -130,8 +145,9 @@ const currentYear = new Date().getFullYear();
             <h1 id="lr-title">Clases de salsa y bachata en Rengo</h1>
             <p class="lr-hero__subtitle">Todos los sábados · 18:00 a 20:00 hrs · Espacio Elementos</p>
             <p class="lr-hero__lead">
-              LatinRengo es una comunidad abierta para quienes quieren aprender, practicar y disfrutar
-              la salsa y la bachata en Rengo. No necesitas pareja ni experiencia previa.
+              Aprende y practica salsa y bachata en Rengo con LatinRengo. También realizamos
+              presentaciones de baile y organizamos fiestas sociales para compartir en comunidad.
+              No necesitas pareja ni experiencia previa para comenzar las clases.
             </p>
             <ul class="lr-hero__features" aria-label="Características de las clases">
               <li>Salsa y bachata</li>
@@ -144,7 +160,7 @@ const currentYear = new Date().getFullYear();
                 Consultar cupo por WhatsApp
               </a>
               <a class="lr-button lr-button--secondary" href="#horario">Ver horario</a>
-              <a class="lr-button lr-button--secondary" href="/latin-rengo-social">Guía LatinRengo Social</a>
+              <a class="lr-button lr-button--secondary" href="#actividades">Conoce nuestras actividades</a>
             </div>
           </div>
 
@@ -187,6 +203,46 @@ const currentYear = new Date().getFullYear();
             </a>
             <p class="lr-purchase-card__contact">{CONTACT}</p>
           </aside>
+        </div>
+      </section>
+
+      <section class="lr-section" aria-labelledby="historia-title">
+        <div class="lr-shell lr-two-column">
+          <div>
+            <p class="lr-kicker">Desde 2025</p>
+            <h2 id="historia-title">Nuestra historia</h2>
+          </div>
+          <div class="lr-prose">
+            <p>LatinRengo comenzó con su primera clase el 17 de mayo de 2025. Desde entonces hemos compartido presentaciones, una competencia de baile y nuestro primer Social.</p>
+            <div class="lr-actions"><a class="lr-button lr-button--dark" href="/linea-de-tiempo">Ver la línea de tiempo</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="actividades" class="lr-section lr-section--cream" aria-labelledby="actividades-title">
+        <div class="lr-shell">
+          <div class="lr-section__heading">
+            <p class="lr-kicker">Bailar en comunidad</p>
+            <h2 id="actividades-title">Clases, presentaciones y fiestas de salsa y bachata</h2>
+            <p class="lr-section__intro">Tres maneras de vivir el baile con LatinRengo en Rengo.</p>
+          </div>
+          <div class="lr-card-grid">
+            <article class="lr-card">
+              <h3>Clases de salsa y bachata</h3>
+              <p>Aprende desde cero o sigue practicando en nuestras clases de los sábados en Espacio Elementos.</p>
+              <a href="#clases">Conoce las clases</a>
+            </article>
+            <article class="lr-card">
+              <h3>Presentaciones de baile</h3>
+              <p>LatinRengo realiza presentaciones de baile. Cuéntanos sobre tu actividad para conversar una participación.</p>
+              <a href="/presentaciones">Conoce las presentaciones</a>
+            </article>
+            <article class="lr-card">
+              <h3>Fiestas y sociales</h3>
+              <p>Organizamos encuentros para bailar salsa y bachata, escuchar música y compartir en comunidad.</p>
+              <a href="/sociales">Conoce los sociales</a>
+            </article>
+          </div>
         </div>
       </section>
 

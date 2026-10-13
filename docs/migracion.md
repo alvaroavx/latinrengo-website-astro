@@ -32,12 +32,12 @@ Ambos siguen disponibles en el repositorio de origen.
 
 ## Validación
 
-**Validado** el 2026-10-13 con `npm run build` y `astro preview` local:
+**Validación de la migración original** del 2026-10-13 con `npm run build` y `astro preview` local:
 
-- Build sin errores; 6 páginas generadas.
+- Build sin errores; 6 páginas generadas en la migración original.
 - Todas las rutas responden 200.
 - Sin referencias internas rotas en `href`, `src`, `srcset`, `content` ni `url()` de CSS.
-- Sitemap limitado a `/`, `/latin-rengo-social/` y `/latin-rengo-social/menu/`.
+- Sitemap original limitado a `/`, `/latin-rengo-social/` y `/latin-rengo-social/menu/`.
 - Archivo, puente QR y alias marcados `noindex`.
 - Contenido `withheld` ausente del HTML generado.
 
@@ -50,9 +50,30 @@ Ambos siguen disponibles en el repositorio de origen.
 - QR impresos que apuntan al dominio anterior: dependen de ese dominio.
 - Retiro de LatinRengo del repositorio de origen.
 
+## SEO posterior a la migración
+
+La portada enlaza clases, presentaciones y sociales. `/presentaciones` y `/sociales` son
+páginas permanentes. La guía y el menú del Social de julio de 2026 se identifican como
+históricos y quedan fuera del sitemap con `noindex`; las rutas siguen disponibles para QR.
+La portada publica datos `Organization` limitados a identidad, área de actividad y perfil
+social. `robots.txt`, canonical, Open Graph y sitemap usan `PUBLIC_SITE_URL`.
+
+Validación local de la etapa SEO previa: `npm run build` generó ocho páginas HTML; 119 referencias locales de
+HTML resolvieron; sitemap con portada y dos actividades; JSON-LD válido; sin marcado
+de ofertas vigentes en la guía histórica. No se comprobó indexación real ni vista móvil
+en navegador.
+
+## Historia y segundo Social
+
+`/linea-de-tiempo` reúne los hitos confirmados de LatinRengo desde la primera clase
+del 17 de mayo de 2025. La participación en Bailando Chile se muestra con su día y mes,
+separada de la secuencia cronológica mientras falta el año. `/sociales` anuncia que el
+segundo encuentro está en preparación para el 7 de noviembre, sin añadir lugar, precios,
+entradas ni programa no confirmados. No se publica marcado `Event` para ese encuentro.
+
 ## Pendientes
 
 1. Definir dominio real en `PUBLIC_SITE_URL` antes del build de producción.
 2. Revisión visual responsive y prueba manual de menú, QR y consentimiento.
-3. Actualización editorial del Social posterior al evento del 18 de julio de 2026.
+3. Confirmar el año, lugar y condiciones del segundo Social del 7 de noviembre y el año de la participación del 4 de julio en Bailando Chile.
 4. Decidir si el repositorio de origen deja de publicar LatinRengo y cómo redirigir.

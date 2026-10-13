@@ -4,7 +4,7 @@ import { loadEnv } from 'vite';
 
 const env = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), 'PUBLIC_');
 const site = process.env.PUBLIC_SITE_URL || env.PUBLIC_SITE_URL || 'http://localhost:4321';
-const excluded = ['/latin-rengo', '/latin-rengo-v3', '/latin-rengo-social/archivo/social-original'];
+const excluded = ['/latin-rengo', '/latin-rengo-v3', '/latin-rengo-social', '/latin-rengo-social/menu', '/latin-rengo-social/archivo/social-original'];
 
 export default defineConfig({
   site,

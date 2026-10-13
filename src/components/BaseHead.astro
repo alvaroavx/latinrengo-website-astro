@@ -8,10 +8,11 @@ interface Props {
 	image?: string;
 	canonicalPath?: string;
 	noindex?: boolean;
+	jsonLd?: Record<string, unknown>;
 }
 
 const site = Astro.site ?? new URL(SITE_URL);
-const { title, description, image = SITE_OG_IMAGE, canonicalPath, noindex = false } = Astro.props;
+const { title, description, image = SITE_OG_IMAGE, canonicalPath, noindex = false, jsonLd } = Astro.props;
 const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, site);
 const socialImage = new URL(image, site);
 ---
@@ -52,3 +53,4 @@ const socialImage = new URL(image, site);
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={socialImage} />
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}

@@ -533,6 +533,27 @@
 	color: var(--lr-muted);
 }
 
+.lr-card a,
+.lr-section__intro a {
+	color: var(--lr-red-dark);
+	font-weight: 700;
+	text-decoration: underline;
+	text-underline-offset: 0.2rem;
+}
+
+.lr-card a {
+	display: inline-block;
+	margin-top: 1rem;
+}
+
+.lr-service-hero {
+	min-height: 32rem;
+}
+
+.lr-service-hero h1 {
+	max-width: 900px;
+}
+
 .lr-card__price {
 	color: var(--lr-red) !important;
 	font-size: 1.5rem;
@@ -724,7 +745,14 @@
 
 @media (max-width: 800px) {
 	.lr-topbar__nav {
-		display: none;
+		order: 3;
+		width: 100%;
+		gap: 0.75rem 1rem;
+		font-size: 0.78rem;
+	}
+
+	.lr-topbar__inner {
+		flex-wrap: wrap;
 	}
 
 	.lr-topbar__cta {
@@ -733,6 +761,7 @@
 
 	.lr-hero {
 		min-height: auto;
+		padding-top: 11rem;
 	}
 
 	.lr-purchase-card {
@@ -783,7 +812,7 @@
 	}
 
 	.lr-hero {
-		padding-top: 7rem;
+		padding-top: 12rem;
 		padding-bottom: 3.5rem;
 	}
 

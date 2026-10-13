@@ -9,19 +9,20 @@ import {
 	socialPath,
 } from '../content/social';
 
-const pageTitle = 'Menú LatinRengo Social';
+const pageTitle = 'Menú de LatinRengo Social 2026 | Archivo';
 const pageDescription =
-	'Menú público confirmado de comida y bebestibles para LatinRengo Social, disponible como texto accesible para teléfono y TV.';
+	'Menú histórico de LatinRengo Social del 18 de julio de 2026. Los productos y precios corresponden solo a esa edición.';
 const transferCopyText =
 	publicMenuTransferDetails?.fields.map((field) => `${field.label}: ${field.value}`).join('\n') ?? '';
 ---
 
-<LatinRengoSocialLayout title={pageTitle} description={pageDescription} canonicalPath="/latin-rengo-social/menu">
+<LatinRengoSocialLayout title={pageTitle} description={pageDescription} canonicalPath="/latin-rengo-social/menu" noindex>
 	<LatinRengoAnalytics sourcePage="latin-rengo-social-menu" initialEvent="select_menu" />
 	<main id="contenido" data-latin-rengo class="lr-page lr-menu-page">
+		<p class="lr-past-event-notice">Menú de la edición del 18 de julio de 2026. Sus productos y precios no indican disponibilidad actual. <a href="/sociales">Ver sociales LatinRengo</a>.</p>
 		<header class="lr-menu-hero">
 			<div>
-				<p class="lr-eyebrow">Menú público</p>
+				<p class="lr-eyebrow">Menú histórico de 2026</p>
 				<h1>LatinRengo Social</h1>
 				<p>{event.dateLabel} · {event.venueName}</p>
 			</div>
@@ -30,7 +31,7 @@ const transferCopyText =
 
 		<section class="lr-menu-board" aria-labelledby="lr-menu-title">
 			<div class="lr-section__heading">
-				<p class="lr-kicker">Menú confirmado</p>
+				<p class="lr-kicker">Registro de la edición de 2026</p>
 				<h2 id="lr-menu-title">Menú</h2>
 			</div>
 			<nav class="lr-menu-jump-nav" aria-label="Categorías del menú">

@@ -1,0 +1,41 @@
+---
+import MarketingLayout from '../components/MarketingLayout.astro';
+
+const contactHref = `https://wa.me/56979898502?text=${encodeURIComponent('Hola LatinRengo, quisiera consultar por una presentación de baile.')}`;
+---
+
+<MarketingLayout
+  title="Presentaciones de baile en Rengo | LatinRengo"
+  description="LatinRengo realiza presentaciones de baile en Rengo. Conoce esta faceta de nuestra comunidad de salsa y bachata y consulta por una presentación."
+  sourcePage="presentaciones"
+>
+  <section class="lr-hero lr-service-hero" aria-labelledby="page-title">
+    <div class="lr-shell">
+      <p class="lr-kicker">LatinRengo en escena</p>
+      <h1 id="page-title">Presentaciones de baile en Rengo</h1>
+      <p class="lr-hero__lead">LatinRengo realiza presentaciones de baile como parte de su actividad en torno a la salsa y la bachata.</p>
+      <div class="lr-actions">
+        <a class="lr-button" href={contactHref} target="_blank" rel="noopener noreferrer">Consultar por una presentación</a>
+      </div>
+    </div>
+  </section>
+  <section class="lr-section" aria-labelledby="presentaciones-info">
+    <div class="lr-shell lr-two-column">
+      <div>
+        <p class="lr-kicker">Baile y comunidad</p>
+        <h2 id="presentaciones-info">LatinRengo también se presenta</h2>
+      </div>
+      <div class="lr-prose">
+        <p>Además de las clases, compartimos el baile en presentaciones. Si estás organizando una actividad en Rengo y quieres conversar sobre una participación de LatinRengo, escríbenos con los detalles.</p>
+        <p>Podemos revisar contigo la fecha, el lugar y el formato de la actividad. La participación se coordina directamente con LatinRengo.</p>
+        <div class="lr-actions"><a class="lr-button lr-button--dark" href={contactHref} target="_blank" rel="noopener noreferrer">Escribir a LatinRengo</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="lr-section lr-section--cream" aria-labelledby="otras-actividades">
+    <div class="lr-shell">
+      <h2 id="otras-actividades">Sigue bailando con LatinRengo</h2>
+      <p class="lr-section__intro">También puedes aprender en nuestras <a href="/">clases de salsa y bachata</a> y compartir en los <a href="/sociales">sociales y fiestas de baile</a>.</p>
+    </div>
+  </section>
+</MarketingLayout>

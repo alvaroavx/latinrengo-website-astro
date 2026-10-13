@@ -1,0 +1,64 @@
+---
+import MarketingLayout from '../components/MarketingLayout.astro';
+
+const contactHref = `https://wa.me/56979898502?text=${encodeURIComponent('Hola LatinRengo, quisiera consultar por los sociales de salsa y bachata.')}`;
+const secondSocialHref = `https://wa.me/56979898502?text=${encodeURIComponent('Hola LatinRengo, quisiera consultar por el segundo Social del 7 de noviembre.')}`;
+---
+
+<MarketingLayout
+  title="Sociales y fiestas de salsa y bachata en Rengo | LatinRengo"
+  description="LatinRengo prepara su segundo Social de salsa y bachata para el 7 de noviembre. Conoce la comunidad y consulta por los detalles del próximo encuentro en Rengo."
+  sourcePage="sociales"
+>
+  <section class="lr-hero lr-service-hero" aria-labelledby="page-title">
+    <div class="lr-shell">
+      <p class="lr-kicker">LatinRengo Social</p>
+      <h1 id="page-title">Sociales y fiestas de salsa y bachata en Rengo</h1>
+      <p class="lr-hero__lead">Creamos encuentros para bailar salsa y bachata, disfrutar la música y compartir con otras personas de la comunidad.</p>
+      <div class="lr-actions">
+        <a class="lr-button" href="#segundo-social">Conoce el segundo Social</a>
+      </div>
+    </div>
+  </section>
+  <section id="segundo-social" class="lr-section lr-section--cream" aria-labelledby="segundo-social-title">
+    <div class="lr-shell lr-two-column">
+      <div>
+        <p class="lr-kicker">Próximo encuentro · En preparación</p>
+        <h2 id="segundo-social-title">Segundo LatinRengo Social</h2>
+      </div>
+      <div class="lr-prose">
+        <p><strong>7 de noviembre.</strong> Estamos organizando nuestro segundo Social para volver a bailar salsa y bachata en comunidad.</p>
+        <p>Pronto compartiremos los detalles de esta edición. Si quieres consultar, escríbenos directamente.</p>
+        <div class="lr-actions"><a class="lr-button lr-button--dark" href={secondSocialHref} target="_blank" rel="noopener noreferrer">Consultar por el segundo Social</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="lr-section" aria-labelledby="sociales-info">
+    <div class="lr-shell lr-two-column">
+      <div>
+        <p class="lr-kicker">Encuentros de baile</p>
+        <h2 id="sociales-info">Bailar y compartir</h2>
+      </div>
+      <div class="lr-prose">
+        <p>Los sociales de LatinRengo son espacios para encontrarnos alrededor de la salsa y la bachata. Son otra forma de vivir lo que practicamos en clases y de compartir el baile en comunidad.</p>
+        <p>Las fechas, el lugar y las condiciones de cada fiesta se comunican para cada edición. Escríbenos si quieres saber qué viene.</p>
+        <div class="lr-actions"><a class="lr-button lr-button--dark" href={contactHref} target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="lr-section lr-section--cream" aria-labelledby="social-anterior">
+    <div class="lr-shell">
+      <p class="lr-kicker">Edición anterior</p>
+      <h2 id="social-anterior">LatinRengo Social 2026</h2>
+      <p class="lr-section__intro">Nuestro primer Social, realizado el 18 de julio de 2026, fue un éxito para la comunidad. Su guía permanece disponible como registro de esa edición; sus entradas, precios y programa no corresponden al segundo encuentro.</p>
+      <div class="lr-actions"><a class="lr-button lr-button--dark" href="/latin-rengo-social">Ver la edición de 2026</a></div>
+      <p class="lr-section__intro">Conoce los hitos que nos trajeron hasta aquí en <a href="/linea-de-tiempo">nuestra línea de tiempo</a>.</p>
+    </div>
+  </section>
+  <section class="lr-section" aria-labelledby="otras-actividades">
+    <div class="lr-shell">
+      <h2 id="otras-actividades">Más formas de bailar</h2>
+      <p class="lr-section__intro">Puedes empezar en nuestras <a href="/">clases de salsa y bachata</a> o conocer las <a href="/presentaciones">presentaciones de LatinRengo</a>.</p>
+    </div>
+  </section>
+</MarketingLayout>

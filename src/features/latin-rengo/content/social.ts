@@ -477,7 +477,7 @@ export const presentationSchedule: PresentationScheduleItem[] = [
 	},
 ];
 
-// Para el dia del evento, actualizar estos estados aqui y verificar la disponibilidad JSON-LD en createEventJsonLd.
+// Entradas de la edición de julio de 2026; todas las ventas de esa edición terminaron.
 export const ticketTiers: TicketTier[] = [
 	{
 		id: 'preventa',
@@ -492,16 +492,16 @@ export const ticketTiers: TicketTier[] = [
 		status: 'confirmed',
 		label: 'General',
 		price: 5000,
-		note: 'Disponible hasta el viernes 17 de julio.',
-		availability: 'available',
+		note: 'Venta cerrada tras la edición de 2026.',
+		availability: 'ended',
 	},
 	{
 		id: 'puerta',
 		status: 'confirmed',
 		label: 'Puerta',
 		price: 8000,
-		note: 'Disponible en puerta el sábado 18 de julio, sujeta a disponibilidad.',
-		availability: 'available',
+		note: 'Venta cerrada tras la edición de 2026.',
+		availability: 'ended',
 	},
 ];
 
@@ -722,24 +722,24 @@ export const menuCategories: MenuCategory[] = [
 export const faqItems: FaqItem[] = [
 	{
 		status: 'confirmed',
-		question: '¿A qué hora parte y termina?',
+		question: '¿A qué hora fue el evento?',
 		answer:
-			'La apertura de puertas es a las 20:30 del sábado 18 de julio de 2026. El cierre al público está programado para las 03:00 del domingo 19 de julio.',
+			'La apertura de puertas fue a las 20:30 del sábado 18 de julio de 2026. El programa contemplaba el cierre a las 03:00 del domingo 19 de julio.',
 	},
 	{
 		status: 'confirmed',
-		question: '¿Habrá clase antes del social?',
-		answer: 'Sí. La clase de salsa cubana está programada de 21:00 a 22:00.',
+		question: '¿Hubo clase antes del social?',
+		answer: 'La programación de la edición de 2026 incluía una clase de salsa cubana de 21:00 a 22:00.',
 	},
 	{
 		status: 'confirmed',
-		question: '¿Dónde será?',
-		answer: 'El recinto confirmado es Centro de Eventos Mariette.',
+		question: '¿Dónde fue?',
+		answer: 'La edición de 2026 se programó en Centro de Eventos Mariette.',
 	},
 	{
 		status: 'confirmed',
-		question: '¿Dónde consulto entradas o dudas del evento?',
-		answer: 'El contacto público autorizado de LatinRengo es +56 9 7989 8502.',
+		question: '¿Dónde consulto por próximos sociales?',
+		answer: 'Escribe a LatinRengo al +56 9 7989 8502 para preguntar por futuras ediciones.',
 	},
 ];
 
@@ -779,33 +779,4 @@ export function formatCLP(price: number): string {
 		currency: 'CLP',
 		maximumFractionDigits: 0,
 	}).format(price);
-}
-
-export function createEventJsonLd() {
-	return {
-		'@context': 'https://schema.org',
-		'@type': 'Event',
-		name: latinRengoSocialEvent.name,
-		startDate: latinRengoSocialEvent.startDateTime,
-		endDate: latinRengoSocialEvent.endDateTime,
-		eventStatus: 'https://schema.org/EventScheduled',
-		eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-		location: {
-			'@type': 'Place',
-			name: latinRengoSocialEvent.venueName,
-			sameAs: latinRengoSocialEvent.location.mapUrl,
-		},
-		offers: publicTickets.map((ticket) => ({
-			'@type': 'Offer',
-			name: ticket.label,
-			price: ticket.price,
-			priceCurrency: 'CLP',
-			url: `${siteOrigin}${socialPath}#entradas`,
-			description: ticket.note,
-			availability:
-				ticket.availability === 'sold-out' || ticket.availability === 'ended'
-					? 'https://schema.org/SoldOut'
-					: 'https://schema.org/InStock',
-		})),
-	};
 }
