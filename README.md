@@ -1,8 +1,8 @@
 # LatinRengo
 
 Sitio Astro independiente de LatinRengo para clases de salsa y bachata en Rengo,
-presentaciones de baile, fiestas sociales y la historia de la comunidad. La portada,
-las páginas de actividades y la línea de tiempo conviven con la guía histórica del
+presentaciones de baile, fiestas sociales y la historia de la comunidad. La portada
+y la línea de tiempo conviven con la guía histórica del
 primer Social y sus rutas conservadas para QR.
 
 ## Empezar

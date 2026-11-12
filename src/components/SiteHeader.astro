@@ -1,0 +1,35 @@
+---
+interface Props {
+  sourcePage: string;
+}
+const { sourcePage } = Astro.props;
+const WA_HREF = `https://wa.me/56979898502?text=${encodeURIComponent('Hola! Quiero consultar sobre las clases de LatinRengo 🎶')}`;
+const CONTACT_ANALYTICS = {
+  'data-lr-event': 'select_contact',
+  'data-lr-site-section': 'latin_rengo',
+  'data-lr-source-page': sourcePage,
+  'data-lr-destination': 'whatsapp',
+  'data-lr-contact-method': 'whatsapp',
+  'data-lr-link-type': 'whatsapp',
+};
+---
+
+    <header class="lr-topbar">
+      <div class="lr-shell lr-topbar__inner">
+        <a class="lr-topbar__brand" href="/" aria-label="LatinRengo, inicio">
+          <img src="/images/colaboradores/isotipo-latinrengo.png" alt="" width="56" height="56" />
+          <span>LatinRengo</span>
+        </a>
+        <nav class="lr-topbar__nav" aria-label="Navegación principal">
+          <a href="/#clases">Clases</a>
+          <a href="/linea-de-tiempo">Nuestra historia</a>
+          <a href="/#horario">Horario</a>
+          <a href="/#como-empezar">Cómo empezar</a>
+          <a href="/#ubicacion">Ubicación</a>
+          <a href="/#preguntas">Preguntas</a>
+        </nav>
+        <a class="lr-topbar__cta" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
+          Consultar cupo
+        </a>
+      </div>
+    </header>

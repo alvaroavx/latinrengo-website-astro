@@ -14,7 +14,7 @@ primero `src/`; la documentación resume rutas, símbolos y límites, sin sustit
 
 ## Estado de lectura
 
-- **Implementado:** páginas de clases, presentaciones, sociales e historia; guía del
+- **Implementado:** portada de clases y línea de tiempo con menú compartido; guía del
   primer Social, menú histórico, puente QR, metadatos, sitemap y consentimiento de analítica.
 - **Validado localmente:** el build de nueve páginas y las referencias locales del HTML
   fueron comprobados durante la iteración de la línea de tiempo. Repetir la validación

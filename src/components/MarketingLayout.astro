@@ -1,5 +1,6 @@
 ---
 import BaseHead from './BaseHead.astro';
+import SiteHeader from './SiteHeader.astro';
 import LatinRengoAnalytics from '../features/latin-rengo/components/LatinRengoAnalytics.astro';
 import '../styles/latin-rengo.css';
 
@@ -18,26 +19,13 @@ const { title, description, sourcePage } = Astro.props;
   <body class="lr-page">
     <a class="lr-skip-link" href="#contenido">Saltar al contenido</a>
     <LatinRengoAnalytics sourcePage={sourcePage} />
-    <header class="lr-topbar">
-      <div class="lr-shell lr-topbar__inner">
-        <a class="lr-topbar__brand" href="/" aria-label="LatinRengo, inicio">
-          <img src="/images/colaboradores/isotipo-latinrengo.png" alt="" width="56" height="56" />
-          <span>LatinRengo</span>
-        </a>
-        <nav class="lr-topbar__nav" aria-label="Actividades de LatinRengo">
-          <a href="/">Clases</a>
-          <a href="/presentaciones">Presentaciones</a>
-          <a href="/sociales">Fiestas sociales</a>
-          <a href="/linea-de-tiempo">Nuestra historia</a>
-        </nav>
-      </div>
-    </header>
+    <SiteHeader sourcePage={sourcePage} />
     <main id="contenido"><slot /></main>
     <footer class="lr-footer">
       <div class="lr-shell lr-footer__inner">
         <p>LatinRengo · Salsa y bachata en Rengo</p>
         <nav aria-label="Enlaces del pie de página">
-          <a href="/">Clases</a> · <a href="/presentaciones">Presentaciones</a> · <a href="/sociales">Fiestas sociales</a> · <a href="/linea-de-tiempo">Nuestra historia</a>
+          <a href="/">Clases</a> · <a href="/linea-de-tiempo">Nuestra historia</a>
         </nav>
         <a href="https://instagram.com/latin.rengo" target="_blank" rel="noopener noreferrer">Instagram @latin.rengo</a>
       </div>

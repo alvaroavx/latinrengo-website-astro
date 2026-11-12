@@ -5,13 +5,21 @@
 | Tema | Fuente de verdad | Límite actual |
 | --- | --- | --- |
 | Clases, horario y recinto | `src/pages/index.astro` | Consultas de cupo y valores por WhatsApp; no se publica disponibilidad automática |
-| Presentaciones | `src/pages/presentaciones.astro` | No se promete formato, fecha o contratación sin coordinación |
-| Segundo Social | `src/pages/sociales.astro` | Se anuncia para el 7 de noviembre; año, sede, entradas y programa pendientes |
+| Presentaciones | `src/pages/index.astro` | No se promete formato, fecha o contratación sin coordinación |
+| Segundo Social | `src/pages/linea-de-tiempo.astro` | Se anuncia para el 7 de noviembre; año, sede, entradas y programa pendientes |
 | Historia | `src/pages/linea-de-tiempo.astro` | Gala Elemental solo con año 2025; Bailando Chile con 4 de julio sin año |
+
+Los horarios vigentes de clases son **miércoles, nivel principiantes, de 19:00 a
+21:00 hrs**, y **sábados, nivel básico, de 19:00 a 21:00 hrs**. Ambos se realizan
+en Espacio Elementos. El pie del archivo del primer Social enlaza esta oferta
+actual; la programación histórica del evento se conserva.
 
 La portada de clases identifica a Espacio Elementos como **recinto**. LatinRengo es
 el proyecto de baile; no asignar a LatinRengo la propiedad de la sede ni trasladar
 contenido corporativo de Espacio Elementos a este repositorio.
+
+Las vistas independientes de presentaciones y sociales fueron retiradas; las
+consultas se dirigen a WhatsApp y el archivo histórico permanece disponible.
 
 ## Primer Social: archivo, no anuncio vigente
 

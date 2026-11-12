@@ -5,8 +5,6 @@
 | Ruta | Fuente | Estado de búsqueda |
 | --- | --- | --- |
 | `/` | [index.astro](../src/pages/index.astro) | Página principal en sitemap |
-| `/presentaciones` | [presentaciones.astro](../src/pages/presentaciones.astro) | En sitemap |
-| `/sociales` | [sociales.astro](../src/pages/sociales.astro) | En sitemap; segundo Social en preparación |
 | `/linea-de-tiempo` | [linea-de-tiempo.astro](../src/pages/linea-de-tiempo.astro) | En sitemap |
 | `/latin-rengo-social` | [Ruta](../src/pages/latin-rengo-social.astro) → [SocialGuide.astro](../src/features/latin-rengo/components/SocialGuide.astro) | Histórico, `noindex`, fuera del sitemap |
 | `/latin-rengo-social/menu` | [Ruta](../src/pages/latin-rengo-social/menu.astro) → [SocialMenuPage.astro](../src/features/latin-rengo/components/SocialMenuPage.astro) | Menú histórico, `noindex`, fuera del sitemap |
@@ -14,9 +12,11 @@
 | `/latin-rengo-v3` | [Ruta](../src/pages/latin-rengo-v3.astro) → [SocialBridgePage.astro](../src/features/latin-rengo/components/SocialBridgePage.astro) | Puente QR, `noindex`, fuera del sitemap |
 | `/latin-rengo` | [latin-rengo.astro](../src/pages/latin-rengo.astro) | Alias de portada, fuera del sitemap |
 
-Las rutas permanentes de actividades usan `src/components/MarketingLayout.astro`,
+La línea de tiempo usa `src/components/MarketingLayout.astro`,
 `src/components/BaseHead.astro` y `src/styles/latin-rengo.css`. La línea de tiempo suma
-`src/styles/linea-de-tiempo.css`. La portada usa `BaseHead` directamente. Las rutas
+`src/styles/linea-de-tiempo.css`. La portada usa `BaseHead` directamente. Ambas comparten el menú y el botón de
+contacto de `src/components/SiteHeader.astro`, con anclas hacia la portada.
+Las vistas `/presentaciones` y `/sociales` fueron retiradas. Las rutas
 históricas usan `src/features/latin-rengo/layouts/LatinRengoSocialLayout.astro` y
 `src/features/latin-rengo/styles/social.css`.
 

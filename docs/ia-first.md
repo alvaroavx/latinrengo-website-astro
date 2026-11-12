@@ -23,7 +23,7 @@ en [AGENTS.md](../AGENTS.md). El índice de esta carpeta está en [README](READM
 | ¿Qué páginas existen y cuáles pueden indexarse? | [Mapa técnico](mapa-tecnico.md), `src/pages/`, `astro.config.mjs` |
 | ¿Dónde se cambia el texto de las clases? | [index.astro](../src/pages/index.astro) |
 | ¿Dónde se cambia la historia? | [linea-de-tiempo.astro](../src/pages/linea-de-tiempo.astro) |
-| ¿Dónde se anuncia el segundo Social? | [sociales.astro](../src/pages/sociales.astro) |
+| ¿Dónde se anuncia el segundo Social? | [linea-de-tiempo.astro](../src/pages/linea-de-tiempo.astro) |
 | ¿Dónde está el primer Social y qué queda oculto? | [Contenido editorial](contenido-editorial.md), [social.ts](../src/features/latin-rengo/content/social.ts) |
 | ¿Cómo se construyen canonical, sitemap y robots? | [BaseHead.astro](../src/components/BaseHead.astro), [astro.config.mjs](../astro.config.mjs), [robots.txt.ts](../src/pages/robots.txt.ts) |
 | ¿Cómo funciona el consentimiento? | [LatinRengoAnalytics.astro](../src/features/latin-rengo/components/LatinRengoAnalytics.astro) |

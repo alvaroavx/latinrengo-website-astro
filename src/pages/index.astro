@@ -1,5 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import LatinRengoAnalytics from '../features/latin-rengo/components/LatinRengoAnalytics.astro';
 import { SITE_URL } from '../consts';
 import '../styles/latin-rengo.css';
@@ -18,8 +19,9 @@ const CONTACT_ANALYTICS = {
 };
 
 const FACTS = [
-  { label: 'Cuándo',   value: 'Todos los sábados'  },
-  { label: 'Horario',  value: '18:00 a 20:00 hrs'  },
+  { label: 'Miércoles', value: 'Nivel principiantes' },
+  { label: 'Sábados',   value: 'Nivel básico'        },
+  { label: 'Horario',  value: '19:00 a 21:00 hrs'  },
   { label: 'Dónde',    value: 'Espacio Elementos'   },
   { label: 'Contacto', value: CONTACT               },
 ];
@@ -36,21 +38,21 @@ const FOR_WHO = [
   { emoji: '🕺', text: 'Quieres aprender salsa y bachata desde cero.' },
   { emoji: '💃', text: 'Ya bailas y quieres practicar más.' },
   { emoji: '🤝', text: 'Quieres conocer gente en un ambiente sano y entretenido.' },
-  { emoji: '🎉', text: 'Buscas una actividad distinta los sábados.' },
+  { emoji: '🎉', text: 'Buscas una actividad distinta los miércoles o sábados.' },
   { emoji: '✨', text: 'Quieres ganar ritmo, coordinación y confianza.' },
   { emoji: '🙌', text: 'No tienes pareja, pero igual quieres bailar.' },
 ];
 
 const STEPS = [
   { num: '01', title: 'Escríbenos',        body: 'Envíanos un mensaje por WhatsApp al ' + CONTACT + '.'                       },
-  { num: '02', title: 'Confirma tu lugar', body: 'Consulta disponibilidad para el próximo sábado.'                             },
+  { num: '02', title: 'Confirma tu lugar', body: 'Consulta disponibilidad para miércoles de principiantes o sábados de nivel básico.'                             },
   { num: '03', title: 'Ven a bailar',      body: 'Llega con ropa cómoda y ganas de aprender. Sin pareja, sin experiencia.'    },
 ];
 
 const FAQS = [
   {
     q: '¿Necesito saber bailar?',
-    a: '¡Para nada! 🙌 La clase está pensada exactamente para quienes parten desde cero. Vamos paso a paso, sin apuro y sin que nadie te juzgue.',
+    a: '¡Para nada! 🙌 La clase de los miércoles es de nivel principiantes, ideal para quienes parten desde cero. Vamos paso a paso, sin apuro y sin que nadie te juzgue.',
   },
   {
     q: '¿Necesito ir con pareja?',
@@ -58,7 +60,7 @@ const FAQS = [
   },
   {
     q: '¿Qué se baila?',
-    a: '¡Salsa y bachata! 🎵 Dos de los ritmos más bacanes del mundo, juntos en una misma clase cada sábado.',
+    a: '¡Salsa y bachata! 🎵 Dos de los ritmos más bacanes del mundo, juntos en nuestras clases de miércoles y sábados.',
   },
   {
     q: '¿Qué estilo de salsa y bachata aprenderé?',
@@ -66,7 +68,7 @@ const FAQS = [
   },
   {
     q: '¿Cuándo son las clases?',
-    a: 'Todos los sábados de 18:00 a 20:00 hrs ⏰ Perfectas para arrancar el fin de semana con energía.',
+    a: 'Miércoles de nivel principiantes y sábados de nivel básico, ambos de 19:00 a 21:00 hrs ⏰.',
   },
   {
     q: '¿Dónde son las clases?',
@@ -82,7 +84,7 @@ const FAQS = [
   },
   {
     q: '¿Hay otros horarios durante la semana?',
-    a: 'Por ahora nos vemos los sábados de 18:00 a 20:00 hrs 🗓️ ¡Y te prometemos que vale mucho la pena!',
+    a: '¡Sí! 🗓️ Los miércoles tenemos clases de nivel principiantes de 19:00 a 21:00 hrs. Los sábados seguimos con nivel básico en el mismo horario.',
   },
 ];
 
@@ -105,7 +107,7 @@ const organizationJsonLd = {
   <head>
     <BaseHead
       title="LatinRengo | Clases, presentaciones y sociales de salsa y bachata en Rengo"
-      description="Aprende salsa y bachata en Rengo con LatinRengo. Clases los sábados en Espacio Elementos, presentaciones de baile y fiestas sociales. Consulta por WhatsApp."
+      description="Aprende salsa y bachata en Rengo con LatinRengo. Miércoles: principiantes. Sábados: básico. De 19:00 a 21:00 hrs en Espacio Elementos."
       jsonLd={organizationJsonLd}
     />
   </head>
@@ -113,27 +115,7 @@ const organizationJsonLd = {
     <a class="lr-skip-link" href="#contenido">Saltar al contenido</a>
     <LatinRengoAnalytics sourcePage="latin-rengo" />
 
-    <header class="lr-topbar">
-      <div class="lr-shell lr-topbar__inner">
-        <a class="lr-topbar__brand" href="/" aria-label="LatinRengo, inicio">
-          <img src="/images/colaboradores/isotipo-latinrengo.png" alt="" width="56" height="56" />
-          <span>LatinRengo</span>
-        </a>
-        <nav class="lr-topbar__nav" aria-label="Navegación principal">
-          <a href="#clases">Clases</a>
-          <a href="/presentaciones">Presentaciones</a>
-          <a href="/sociales">Fiestas sociales</a>
-          <a href="/linea-de-tiempo">Nuestra historia</a>
-          <a href="#horario">Horario</a>
-          <a href="#como-empezar">Cómo empezar</a>
-          <a href="#ubicacion">Ubicación</a>
-          <a href="#preguntas">Preguntas</a>
-        </nav>
-        <a class="lr-topbar__cta" href={WA_HREF} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>
-          Consultar cupo
-        </a>
-      </div>
-    </header>
+    <SiteHeader sourcePage="latin-rengo" />
 
     <main id="contenido">
 
@@ -143,7 +125,7 @@ const organizationJsonLd = {
           <div>
             <p class="lr-kicker">LatinRengo · Clases de baile en Rengo</p>
             <h1 id="lr-title">Clases de salsa y bachata en Rengo</h1>
-            <p class="lr-hero__subtitle">Todos los sábados · 18:00 a 20:00 hrs · Espacio Elementos</p>
+            <p class="lr-hero__subtitle">Miércoles y sábados · 19:00 a 21:00 hrs · Espacio Elementos</p>
             <p class="lr-hero__lead">
               Aprende y practica salsa y bachata en Rengo con LatinRengo. También realizamos
               presentaciones de baile y organizamos fiestas sociales para compartir en comunidad.
@@ -151,7 +133,9 @@ const organizationJsonLd = {
             </p>
             <ul class="lr-hero__features" aria-label="Características de las clases">
               <li>Salsa y bachata</li>
-              <li>Sábados 18:00–20:00 hrs</li>
+              <li>Miércoles · Principiantes</li>
+              <li>Sábados · Básico</li>
+              <li>19:00–21:00 hrs</li>
               <li>No necesitas pareja</li>
               <li>Comunidad LatinRengo</li>
             </ul>
@@ -176,12 +160,16 @@ const organizationJsonLd = {
             <p class="lr-purchase-card__label">Clases regulares</p>
             <dl class="lr-purchase-card__facts">
               <div>
-                <dt>Cuándo</dt>
-                <dd>Todos los sábados</dd>
+                <dt>Miércoles</dt>
+                <dd>Nivel principiantes</dd>
+              </div>
+              <div>
+                <dt>Sábados</dt>
+                <dd>Nivel básico</dd>
               </div>
               <div>
                 <dt>Horario</dt>
-                <dd>18:00 a 20:00 hrs</dd>
+                <dd>19:00 a 21:00 hrs</dd>
               </div>
               <div>
                 <dt>Lugar</dt>
@@ -229,18 +217,18 @@ const organizationJsonLd = {
           <div class="lr-card-grid">
             <article class="lr-card">
               <h3>Clases de salsa y bachata</h3>
-              <p>Aprende desde cero o sigue practicando en nuestras clases de los sábados en Espacio Elementos.</p>
+              <p>Aprende desde cero los miércoles de nivel principiantes o sigue practicando los sábados de nivel básico en Espacio Elementos.</p>
               <a href="#clases">Conoce las clases</a>
             </article>
             <article class="lr-card">
               <h3>Presentaciones de baile</h3>
               <p>LatinRengo realiza presentaciones de baile. Cuéntanos sobre tu actividad para conversar una participación.</p>
-              <a href="/presentaciones">Conoce las presentaciones</a>
+              <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hola LatinRengo, quisiera consultar por una presentación de baile.")}`} target="_blank" rel="noopener noreferrer" {...CONTACT_ANALYTICS}>Consultar por presentaciones</a>
             </article>
             <article class="lr-card">
               <h3>Fiestas y sociales</h3>
               <p>Organizamos encuentros para bailar salsa y bachata, escuchar música y compartir en comunidad.</p>
-              <a href="/sociales">Conoce los sociales</a>
+              <a href="/linea-de-tiempo">Conoce nuestra historia</a>
             </article>
           </div>
         </div>
@@ -296,8 +284,8 @@ const organizationJsonLd = {
               ser parte de una comunidad latina activa.
             </p>
             <p>
-              Las clases son abiertas, progresivas y sin presión. Cada sábado hay espacio para quienes
-              llegan por primera vez y para quienes ya llevan tiempo bailando.
+              Las clases son abiertas, progresivas y sin presión. Los miércoles aprendemos desde cero
+              en nivel principiantes y los sábados seguimos practicando en nivel básico.
             </p>
           </div>
         </div>
@@ -364,13 +352,17 @@ const organizationJsonLd = {
             <p class="lr-kicker">Programa de clases</p>
             <h2 id="horario-title">Horario de clases</h2>
             <p class="lr-section__intro">
-              Nos reunimos todos los sábados para aprender y practicar salsa y bachata en comunidad.
+              Nos reunimos los miércoles en nivel principiantes y los sábados en nivel básico para aprender y practicar salsa y bachata en comunidad.
             </p>
           </div>
           <ol class="lr-schedule">
             <li>
+              <time>Miércoles</time>
+              <strong>Nivel principiantes · 19:00 a 21:00 hrs · Espacio Elementos · Salsa y bachata</strong>
+            </li>
+            <li>
               <time>Sábados</time>
-              <strong>18:00 a 20:00 hrs · Espacio Elementos · Salsa y bachata</strong>
+              <strong>Nivel básico · 19:00 a 21:00 hrs · Espacio Elementos · Salsa y bachata</strong>
             </li>
           </ol>
         </div>
@@ -473,8 +465,8 @@ const organizationJsonLd = {
             <h2 id="cta-final-title">Súmate a LatinRengo</h2>
             <div class="lr-closing-copy">
               <p>Ven a aprender salsa y bachata en un espacio cercano, entretenido y abierto a la comunidad.</p>
-              <p>Todos los sábados nos reunimos para bailar, practicar y seguir construyendo la comunidad latina de Rengo.</p>
-              <p>Todos los sábados, 18:00 a 20:00 hrs.</p>
+              <p>Los miércoles y sábados nos reunimos para bailar, practicar y seguir construyendo la comunidad latina de Rengo.</p>
+              <p>Miércoles: nivel principiantes. Sábados: nivel básico. Ambos de 19:00 a 21:00 hrs.</p>
             </div>
           </div>
           <div class="lr-actions">
@@ -491,7 +483,7 @@ const organizationJsonLd = {
       <div class="lr-shell lr-footer__inner">
         <div>
           <p>LatinRengo · Clases de salsa y bachata en Rengo</p>
-          <p>Sábados de 18:00 a 20:00 hrs · Espacio Elementos</p>
+          <p>Miércoles: principiantes · Sábados: básico · 19:00 a 21:00 hrs · Espacio Elementos</p>
           <p>Calle Nueva Tres #1036, Naranjal Norte, Rengo</p>
         </div>
         <div>
